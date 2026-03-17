@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DigiVardhan Marketing – Political Digital Campaign Content</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold: #D4A017;
+  --gold-light: #F5C842;
+  --deep: #0A0A12;
+  --navy: #0D1B2A;
+  --accent: #C1121F;
+  --white: #F8F4EF;
+  --muted: #8A8FA0;
+  --card-bg: rgba(255,255,255,0.04);
+  --border: rgba(212,160,23,0.25);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background: var(--deep);
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  background: rgba(10,10,18,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo-mark{
+  display:flex;align-items:center;gap:12px;
+}
+
+.logo-icon{
+  width:44px;height:44px;
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  box-shadow: 0 0 20px rgba(212,160,23,0.4);
+}
+
+.logo-text{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;
+  font-weight:700;
+  color: var(--gold);
+  line-height:1.1;
+}
+.logo-text span{
+  display:block;
+  font-family:'Rajdhani',sans-serif;
+  font-size:0.65rem;
+  font-weight:600;
+  color: var(--muted);
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.nav-cta{
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--deep);
+  border:none;
+  padding:10px 24px;
+  border-radius:6px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:0.95rem;
+  cursor:pointer;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:all .3s;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,160,23,0.4);}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;align-items:center;
+  padding:120px 5% 80px;
+  overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;inset:0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(193,18,31,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(212,160,23,0.08) 0%, transparent 60%),
+    linear-gradient(160deg, #0A0A12 0%, #0D1B2A 60%, #0A0A12 100%);
+  z-index:0;
+}
+
+/* Animated particles */
+.particles{position:absolute;inset:0;z-index:1;overflow:hidden;}
+.particle{
+  position:absolute;
+  width:2px;height:2px;
+  background:var(--gold);
+  border-radius:50%;
+  animation: float linear infinite;
+  opacity:0;
+}
+@keyframes float{
+  0%{transform:translateY(100vh) translateX(0);opacity:0;}
+  10%{opacity:0.6;}
+  90%{opacity:0.3;}
+  100%{transform:translateY(-10vh) translateX(40px);opacity:0;}
+}
+
+.hero-content{
+  position:relative;z-index:2;
+  max-width:750px;
+  animation: heroIn 1s ease both;
+}
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background: rgba(212,160,23,0.12);
+  border:1px solid var(--border);
+  border-radius:30px;
+  padding:8px 20px;
+  font-size:0.8rem;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:28px;
+}
+.hero-badge::before{
+  content:'';
+  width:8px;height:8px;
+  background:var(--gold);
+  border-radius:50%;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(212,160,23,0.6);}
+  50%{box-shadow:0 0 0 8px rgba(212,160,23,0);}
+}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,6vw,5rem);
+  font-weight:900;
+  line-height:1.08;
+  margin-bottom:20px;
+  color:var(--white);
+}
+.hero-title .accent{
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-services{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-bottom:24px;
+}
+.service-pill{
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:4px;
+  padding:6px 14px;
+  font-size:0.78rem;
+  font-weight:600;
+  letter-spacing:1px;
+  color:var(--muted);
+}
+
+.hero-tagline{
+  font-size:1.15rem;
+  color: rgba(248,244,239,0.65);
+  font-weight:500;
+  margin-bottom:44px;
+  max-width:520px;
+  line-height:1.6;
+}
+
+.hero-buttons{
+  display:flex;flex-wrap:wrap;gap:16px;
+}
+
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--deep);
+  border:none;
+  padding:15px 32px;
+  border-radius:8px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:all .3s;
+  box-shadow:0 4px 20px rgba(212,160,23,0.3);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(212,160,23,0.5);}
+
+.btn-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;
+  color:var(--gold);
+  border:2px solid var(--gold);
+  padding:14px 32px;
+  border-radius:8px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:all .3s;
+}
+.btn-outline:hover{background:rgba(212,160,23,0.08);transform:translateY(-3px);}
+
+/* Hero visual side */
+.hero-visual{
+  position:absolute;right:-5%;top:50%;
+  transform:translateY(-50%);
+  width:min(480px,45vw);
+  z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  animation: heroVisIn 1.2s ease 0.3s both;
+}
+@keyframes heroVisIn{
+  from{opacity:0;transform:translateY(-40%) translateX(30px);}
+  to{opacity:1;transform:translateY(-50%) translateX(0);}
+}
+
+.campaign-card{
+  background: var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  backdrop-filter:blur(10px);
+  transition:transform .3s;
+}
+.campaign-card:hover{transform:translateY(-6px);}
+
+.campaign-card.tall{grid-row:span 2;}
+
+.card-media{
+  width:100%;
+  aspect-ratio:3/2;
+  object-fit:cover;
+  display:block;
+}
+.card-media.tall{aspect-ratio:3/4;}
+
+.card-info{
+  padding:10px 12px;
+  font-size:0.75rem;
+  color:var(--muted);
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  border-top:1px solid var(--border);
+}
+.card-info span{color:var(--gold);}
+
+/* Demo gradient images */
+.demo-img{
+  width:100%;display:block;
+}
+.demo-img-political{
+  background: linear-gradient(135deg, #1a2a4a 0%, #0d1b2a 40%, #2a1a0a 100%);
+  position:relative;overflow:hidden;
+}
+.demo-img-political::after{
+  content:'🏛️';
+  font-size:3rem;
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  opacity:0.5;
+}
+.demo-img-video{
+  background: linear-gradient(135deg, #1a0a0a, #2a0a0a);
+  position:relative;overflow:hidden;
+}
+.demo-img-video::after{
+  content:'▶';
+  font-size:2rem;
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  color:var(--gold);
+  opacity:0.7;
+}
+.demo-img-reel{
+  background:linear-gradient(180deg,#0a1a2a,#1a0a1a);
+  position:relative;
+}
+.demo-img-reel::after{content:'🎬';font-size:2rem;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.5;}
+
+/* ─── STATS BAR ─── */
+.stats-bar{
+  position:relative;z-index:2;
+  padding:28px 5%;
+  background:rgba(255,255,255,0.02);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+.stat{text-align:center;}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;
+  font-weight:700;
+  color:var(--gold);
+  line-height:1;
+}
+.stat-label{
+  font-size:0.75rem;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-top:4px;
+}
+
+/* ─── SECTION COMMONS ─── */
+section{position:relative;z-index:2;padding:90px 5%;}
+
+.section-tag{
+  display:inline-block;
+  font-size:0.72rem;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  border-left:3px solid var(--gold);
+  padding-left:12px;
+  margin-bottom:16px;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:900;
+  line-height:1.1;
+  margin-bottom:20px;
+}
+.section-title .line{display:block;}
+
+/* ─── ABOUT ─── */
+#about{
+  background:linear-gradient(160deg,rgba(13,27,42,0.5),rgba(10,10,18,0.5));
+}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+.about-text p{
+  font-size:1.05rem;
+  color:rgba(248,244,239,0.7);
+  line-height:1.8;
+  margin-bottom:20px;
+}
+.about-features{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin-top:30px;
+}
+.feature-item{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:18px;
+}
+.feature-icon{font-size:1.5rem;margin-bottom:8px;}
+.feature-name{
+  font-size:0.85rem;font-weight:700;
+  letter-spacing:1px;color:var(--gold);
+}
+.feature-desc{font-size:0.78rem;color:var(--muted);margin-top:4px;line-height:1.5;}
+
+.about-visual{
+  position:relative;
+}
+.about-main-img{
+  width:100%;
+  border-radius:16px;
+  border:1px solid var(--border);
+  aspect-ratio:4/5;
+  background:linear-gradient(160deg,#0d1b2a,#1a0d0a,#0a0a12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;
+  position:relative;
+  overflow:hidden;
+}
+.about-main-img::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 60% 40%,rgba(193,18,31,0.15),transparent 60%);
+}
+.about-badge-float{
+  position:absolute;bottom:-20px;left:-20px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--deep);
+  padding:16px 22px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:0.85rem;
+  box-shadow:0 8px 30px rgba(212,160,23,0.4);
+}
+
+/* ─── SERVICES / PORTFOLIO ─── */
+#services{
+  background:var(--deep);
+}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:50px;
+}
+.service-card{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:30px;
+  position:relative;
+  overflow:hidden;
+  transition:all .4s;
+  cursor:default;
+}
+.service-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--accent));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:.4s;
+}
+.service-card:hover::before{transform:scaleX(1);}
+.service-card:hover{transform:translateY(-8px);border-color:rgba(212,160,23,0.4);}
+
+.svc-icon{font-size:2.5rem;margin-bottom:18px;display:block;}
+.svc-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;font-weight:700;
+  margin-bottom:10px;color:var(--white);
+}
+.svc-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;}
+
+.svc-thumb{
+  width:100%;aspect-ratio:16/9;
+  border-radius:10px;
+  margin-top:18px;
+  object-fit:cover;
+  overflow:hidden;
+}
+
+/* ─── VIDEO SHOWCASE ─── */
+#showcase{
+  background:linear-gradient(160deg,rgba(13,27,42,0.4),rgba(10,10,18,0.4));
+}
+.video-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:18px;
+  margin-top:50px;
+}
+.video-item{
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  position:relative;
+  cursor:pointer;
+  group: true;
+}
+.video-item.featured{grid-row:span 2;}
+.video-thumb{
+  width:100%;
+  aspect-ratio:16/9;
+  display:block;
+  position:relative;
+}
+.video-item.featured .video-thumb{aspect-ratio:9/14;}
+
+.play-overlay{
+  position:absolute;inset:0;
+  background:rgba(10,10,18,0.4);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;
+  transition:.3s;
+}
+.video-item:hover .play-overlay{opacity:1;}
+.play-btn{
+  width:60px;height:60px;
+  background:rgba(212,160,23,0.9);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;
+  color:var(--deep);
+  transform:scale(0.8);
+  transition:.3s;
+}
+.video-item:hover .play-btn{transform:scale(1);}
+
+.video-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:12px 16px;
+  background:linear-gradient(transparent,rgba(10,10,18,0.9));
+  font-size:0.8rem;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+/* ─── VOICE RECORDER SLIDER ─── */
+#voice-section{
+  background:var(--deep);
+  padding:90px 5%;
+}
+.voice-container{
+  max-width:700px;
+  margin:0 auto;
+  text-align:center;
+}
+.voice-player{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:36px;
+  margin-top:40px;
+}
+.voice-label{
+  font-size:0.78rem;color:var(--muted);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.voice-title-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px;
+}
+.voice-track-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:700;
+  color:var(--white);
+}
+.voice-duration{font-size:0.85rem;color:var(--muted);}
+
+/* Waveform */
+.waveform{
+  display:flex;align-items:center;gap:3px;
+  height:64px;
+  margin-bottom:18px;
+  padding:0 4px;
+}
+.wave-bar{
+  flex:1;
+  background:rgba(212,160,23,0.25);
+  border-radius:2px;
+  transition:background .3s;
+  cursor:pointer;
+}
+.wave-bar.active{background:var(--gold);}
+.wave-bar.played{background:rgba(212,160,23,0.6);}
+
+/* Slider (progress) */
+.progress-slider{
+  width:100%;
+  -webkit-appearance:none;
+  height:4px;
+  background:rgba(255,255,255,0.1);
+  border-radius:2px;
+  outline:none;
+  cursor:pointer;
+  margin-bottom:14px;
+  accent-color: var(--gold);
+}
+.progress-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:16px;height:16px;
+  background:var(--gold);
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 0 8px rgba(212,160,23,0.5);
+}
+.time-row{
+  display:flex;justify-content:space-between;
+  font-size:0.78rem;color:var(--muted);
+  margin-bottom:20px;
+}
+.voice-controls{
+  display:flex;align-items:center;justify-content:center;gap:20px;
+}
+.ctrl-btn{
+  background:none;border:none;cursor:pointer;
+  color:var(--muted);font-size:1.3rem;
+  transition:.2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.ctrl-btn:hover{color:var(--gold);}
+.ctrl-btn.play-main{
+  width:56px;height:56px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  border-radius:50%;
+  font-size:1.4rem;
+  color:var(--deep);
+  box-shadow:0 4px 20px rgba(212,160,23,0.4);
+}
+.ctrl-btn.play-main:hover{transform:scale(1.05);}
+
+/* Track list */
+.track-list{
+  margin-top:28px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.track-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;
+  border-radius:10px;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:.3s;
+}
+.track-item:hover,.track-item.active{
+  background:rgba(212,160,23,0.07);
+  border-color:var(--border);
+}
+.track-num{
+  font-size:0.78rem;color:var(--muted);
+  width:20px;text-align:center;
+}
+.track-info{flex:1;text-align:left;}
+.track-name{font-size:0.9rem;font-weight:600;color:var(--white);}
+.track-sub{font-size:0.75rem;color:var(--muted);}
+.track-dur{font-size:0.8rem;color:var(--muted);}
+
+/* ─── CONTACT SECTION ─── */
+#contact{
+  background:linear-gradient(160deg,rgba(13,27,42,0.6),rgba(10,10,18,0.8));
+  text-align:center;
+}
+.contact-subtitle{
+  font-size:1.1rem;
+  color:rgba(248,244,239,0.6);
+  max-width:500px;
+  margin:0 auto 50px;
+  line-height:1.7;
+}
+.contact-buttons{
+  display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
+  margin-bottom:60px;
+}
+
+.btn-call{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#2d6a2d,#3d8b3d);
+  color:#fff;
+  border:none;
+  padding:16px 36px;
+  border-radius:10px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:1.05rem;
+  cursor:pointer;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:all .3s;
+  box-shadow:0 4px 20px rgba(45,106,45,0.35);
+}
+.btn-call:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(45,106,45,0.5);}
+
+.btn-whatsapp{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#075e54,#128c7e);
+  color:#fff;
+  border:none;
+  padding:16px 36px;
+  border-radius:10px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:1.05rem;
+  cursor:pointer;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:all .3s;
+  box-shadow:0 4px 20px rgba(7,94,84,0.35);
+}
+.btn-whatsapp:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(7,94,84,0.5);}
+
+.btn-contact-main{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,var(--accent),#e63946);
+  color:#fff;
+  border:none;
+  padding:16px 36px;
+  border-radius:10px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:1.05rem;
+  cursor:pointer;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:all .3s;
+  box-shadow:0 4px 20px rgba(193,18,31,0.35);
+}
+.btn-contact-main:hover{transform:translateY(-3px);}
+
+.contact-form{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:44px;
+  max-width:600px;
+  margin:0 auto;
+  text-align:left;
+}
+.form-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:700;
+  margin-bottom:28px;
+  text-align:center;
+}
+.form-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin-bottom:16px;
+}
+.form-group{margin-bottom:16px;}
+.form-label{
+  display:block;
+  font-size:0.78rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+.form-input,.form-textarea,.form-select{
+  width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;
+  padding:13px 16px;
+  color:var(--white);
+  font-family:'Rajdhani',sans-serif;
+  font-size:0.95rem;
+  outline:none;
+  transition:.3s;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(212,160,23,0.1);
+}
+.form-textarea{resize:vertical;min-height:110px;}
+.form-select option{background:var(--deep);}
+.form-submit{
+  width:100%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--deep);
+  border:none;
+  padding:16px;
+  border-radius:8px;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size:1.05rem;
+  cursor:pointer;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:.3s;
+  margin-top:8px;
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,160,23,0.4);}
+
+/* ─── FOOTER ─── */
+footer{
+  position:relative;z-index:2;
+  padding:40px 5%;
+  border-top:1px solid var(--border);
+  display:flex;
+  align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  background:rgba(10,10,18,0.8);
+}
+.footer-brand{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--gold);
+}
+.footer-copy{
+  font-size:0.8rem;color:var(--muted);
+}
+.footer-links{
+  display:flex;gap:20px;
+}
+.footer-links a{
+  font-size:0.8rem;color:var(--muted);text-decoration:none;
+  transition:.2s;
+}
+.footer-links a:hover{color:var(--gold);}
+
+/* ─── FLOATING WHATSAPP ─── */
+.float-wa{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:58px;height:58px;
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;
+  box-shadow:0 4px 20px rgba(37,211,102,0.4);
+  cursor:pointer;
+  text-decoration:none;
+  animation:bounceIn .8s 2s both, waPulse 3s 3s ease infinite;
+}
+@keyframes bounceIn{
+  from{transform:scale(0);opacity:0;}
+  60%{transform:scale(1.15);}
+  to{transform:scale(1);opacity:1;}
+}
+@keyframes waPulse{
+  0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.4);}
+  50%{box-shadow:0 4px 36px rgba(37,211,102,0.7);}
+}
+
+/* Demo visual backgrounds */
+.demo-v1{background:linear-gradient(135deg,#0d1b2a 0%,#1a2a1a 100%);}
+.demo-v2{background:linear-gradient(135deg,#1a0a0a 0%,#2a1a0a 100%);}
+.demo-v3{background:linear-gradient(135deg,#0a0a2a 0%,#1a0a2a 100%);}
+.demo-v4{background:linear-gradient(135deg,#0a1a0a 0%,#1a2a0a 100%);}
+
+.demo-overlay{
+  width:100%;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.demo-overlay span{font-size:3rem;opacity:0.4;}
+
+/* Divider */
+.gold-divider{
+  width:60px;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--accent));
+  border-radius:2px;
+  margin:20px 0 30px;
+}
+
+/* responsive */
+@media(max-width:900px){
+  .hero-visual{display:none;}
+  .about-grid,.services-grid,.video-grid,.form-row{grid-template-columns:1fr;}
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .video-item.featured{grid-row:auto;}
+  .hero-content{max-width:100%;}
+}
+@media(max-width:600px){
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .contact-buttons{flex-direction:column;align-items:stretch;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-mark">
+    <div class="logo-icon">🗳️</div>
+    <div class="logo-text">
+      DigiVardhan
+      <span>Marketing</span>
+    </div>
+  </div>
+  <a href="#contact" class="nav-cta">Get Started →</a>
+</nav>
+
+<!-- Floating WA -->
+<a href="https://wa.me/919999999999" class="float-wa" target="_blank" title="WhatsApp Us">💬</a>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🏛️ Political Digital Campaigns</div>
+    <h1 class="hero-title">
+      Political Digital<br>
+      <span class="accent">Campaign Content</span>
+    </h1>
+    <div class="hero-services">
+      <span class="service-pill">🎬 AI Campaign Videos</span>
+      <span class="service-pill">📱 Cinematic Reels</span>
+      <span class="service-pill">✨ Motion Graphics</span>
+      <span class="service-pill">📣 Social Media Content</span>
+    </div>
+    <p class="hero-tagline">
+      Modern digital campaign content designed for political leaders and candidates — built to connect, inspire, and win votes.
+    </p>
+    <div class="hero-buttons">
+      <a href="#showcase" class="btn-primary">👉 View Campaign Content</a>
+      <a href="#contact" class="btn-outline">👉 Contact for Promotion</a>
+    </div>
+  </div>
+
+  <!-- Floating cards -->
+  <div class="hero-visual">
+    <div class="campaign-card tall">
+      <div class="demo-img demo-v1 demo-overlay" style="aspect-ratio:3/4;"><span>🏛️</span></div>
+      <div class="card-info"><span>Featured</span> · Campaign Reel</div>
+    </div>
+    <div class="campaign-card">
+      <div class="demo-img demo-v2 demo-overlay" style="aspect-ratio:3/2;"><span>🎬</span></div>
+      <div class="card-info"><span>New</span> · Motion Ad</div>
+    </div>
+    <div class="campaign-card">
+      <div class="demo-img demo-v3 demo-overlay" style="aspect-ratio:3/2;"><span>📣</span></div>
+      <div class="card-info"><span>Live</span> · Social Post</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Campaigns Delivered</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">200+</div>
+    <div class="stat-label">Leaders Served</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">50M+</div>
+    <div class="stat-label">Reach Generated</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5★</div>
+    <div class="stat-label">Client Satisfaction</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ ABOUT ═══════════════════════════════ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-tag">About Us</div>
+      <h2 class="section-title">
+        <span class="line">Who Is</span>
+        <span class="line" style="color:var(--gold)">DigiVardhan?</span>
+      </h2>
+      <div class="gold-divider"></div>
+      <p>
+        DigiVardhan Marketing creates <strong>modern digital campaign content</strong> for political leaders and candidates across India. We understand the pulse of the voter and the power of visual storytelling.
+      </p>
+      <p>
+        Our focus is on powerful social media content that helps leaders <strong>connect with voters</strong> and build a strong digital presence — from high-impact video reels to motion graphics and AI-generated campaign visuals.
+      </p>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon">🎥</div>
+          <div class="feature-name">AI Videos</div>
+          <div class="feature-desc">Cinematic AI-powered campaign videos crafted for maximum impact</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <div class="feature-name">Reels & Shorts</div>
+          <div class="feature-desc">Viral-ready short-form content for Instagram, YouTube & Facebook</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✨</div>
+          <div class="feature-name">Motion Graphics</div>
+          <div class="feature-desc">Professional motion design for speeches, rallies & announcements</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📣</div>
+          <div class="feature-name">Social Strategy</div>
+          <div class="feature-desc">End-to-end digital presence management & content calendar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-visual">
+      <div class="about-main-img">
+        <span>🏛️</span>
+      </div>
+      <div class="about-badge-float">
+        ✅ Trusted by 200+ Leaders
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SERVICES ═══════════════════════════════ -->
+<section id="services">
+  <div class="section-tag">Our Services</div>
+  <h2 class="section-title">
+    Campaign Content<br><span style="color:var(--gold)">We Create</span>
+  </h2>
+  <div class="gold-divider"></div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="svc-icon">🎬</span>
+      <div class="svc-name">AI Campaign Videos</div>
+      <div class="svc-desc">Full AI-powered cinematic campaign videos with narration, captions, and background score tailored for your message.</div>
+      <div class="svc-thumb demo-v1 demo-overlay" style="aspect-ratio:16/9;border-radius:10px;margin-top:18px;"><span>🎬</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">📱</span>
+      <div class="svc-name">Cinematic Reels</div>
+      <div class="svc-desc">Instagram & YouTube Reels crafted for viral reach — rally footage, speeches, and voter connect moments transformed.</div>
+      <div class="svc-thumb demo-v2 demo-overlay" style="aspect-ratio:16/9;border-radius:10px;margin-top:18px;"><span>📱</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">✨</span>
+      <div class="svc-name">Motion Graphics</div>
+      <div class="svc-desc">Animated infographics, achievement posts, and announcement graphics with professional motion design.</div>
+      <div class="svc-thumb demo-v3 demo-overlay" style="aspect-ratio:16/9;border-radius:10px;margin-top:18px;"><span>✨</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🗳️</span>
+      <div class="svc-name">Political Social Media</div>
+      <div class="svc-desc">Daily content calendar, election campaign posts, voter awareness creatives — complete social media management.</div>
+      <div class="svc-thumb demo-v4 demo-overlay" style="aspect-ratio:16/9;border-radius:10px;margin-top:18px;"><span>🗳️</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">🎙️</span>
+      <div class="svc-name">Voice Campaign Ads</div>
+      <div class="svc-desc">Professional voice-over campaign audio for WhatsApp bulk messaging, radio ads, and rally announcements.</div>
+      <div class="svc-thumb demo-v1 demo-overlay" style="aspect-ratio:16/9;border-radius:10px;margin-top:18px;"><span>🎙️</span></div>
+    </div>
+    <div class="service-card">
+      <span class="svc-icon">📊</span>
+      <div class="svc-name">Branding & Posters</div>
+      <div class="svc-desc">High-resolution campaign posters, banners, hoardings, and complete digital branding kit for leaders.</div>
+      <div class="svc-thumb demo-v2 demo-overlay" style="aspect-ratio:16/9;border-radius:10px;margin-top:18px;"><span>📊</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ VIDEO SHOWCASE ═══════════════════════════════ -->
+<section id="showcase">
+  <div class="section-tag">Portfolio</div>
+  <h2 class="section-title">
+    Campaign Content<br><span style="color:var(--gold)">Showcase</span>
+  </h2>
+  <div class="gold-divider"></div>
+
+  <div class="video-grid">
+    <!-- Featured -->
+    <div class="video-item featured">
+      <div class="video-thumb demo-v1 demo-overlay" style="aspect-ratio:9/14;">
+        <span style="font-size:5rem;">🏛️</span>
+      </div>
+      <div class="play-overlay"><div class="play-btn">▶</div></div>
+      <div class="video-label">✨ Featured · Election Campaign Reel 2024</div>
+    </div>
+
+    <div class="video-item">
+      <div class="video-thumb demo-v2 demo-overlay"><span>🎬</span></div>
+      <div class="play-overlay"><div class="play-btn">▶</div></div>
+      <div class="video-label">AI Video · Leader Profile</div>
+    </div>
+    <div class="video-item">
+      <div class="video-thumb demo-v3 demo-overlay"><span>✨</span></div>
+      <div class="play-overlay"><div class="play-btn">▶</div></div>
+      <div class="video-label">Motion · Achievement Post</div>
+    </div>
+    <div class="video-item">
+      <div class="video-thumb demo-v4 demo-overlay"><span>📣</span></div>
+      <div class="play-overlay"><div class="play-btn">▶</div></div>
+      <div class="video-label">Reel · Rally Highlights</div>
+    </div>
+    <div class="video-item">
+      <div class="video-thumb demo-v1 demo-overlay"><span>🗳️</span></div>
+      <div class="play-overlay"><div class="play-btn">▶</div></div>
+      <div class="video-label">Social · Voter Connect</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ VOICE SLIDER ═══════════════════════════════ -->
+<section id="voice-section">
+  <div style="text-align:center;">
+    <div class="section-tag" style="display:inline-block">Voice Samples</div>
+    <h2 class="section-title">Campaign Voice <span style="color:var(--gold)">Recordings</span></h2>
+    <div class="gold-divider" style="margin:20px auto 0;"></div>
+  </div>
+
+  <div class="voice-container">
+    <div class="voice-player">
+      <div class="voice-label">🎙️ Now Playing</div>
+      <div class="voice-title-row">
+        <div class="voice-track-title" id="trackTitle">Chunav Campaign – Hindi</div>
+        <div class="voice-duration" id="trackDur">2:45</div>
+      </div>
+
+      <!-- Waveform display -->
+      <div class="waveform" id="waveform"></div>
+
+      <!-- Progress -->
+      <input type="range" class="progress-slider" id="progressSlider" min="0" max="100" value="0"/>
+      <div class="time-row">
+        <span id="currentTime">0:00</span>
+        <span id="totalTime">2:45</span>
+      </div>
+
+      <!-- Controls -->
+      <div class="voice-controls">
+        <button class="ctrl-btn" id="prevBtn" title="Previous">⏮</button>
+        <button class="ctrl-btn" id="shuffleBtn" title="Shuffle">🔀</button>
+        <button class="ctrl-btn play-main" id="playBtn">▶</button>
+        <button class="ctrl-btn" id="repeatBtn" title="Repeat">🔁</button>
+        <button class="ctrl-btn" id="nextBtn" title="Next">⏭</button>
+      </div>
+
+      <!-- Track List -->
+      <div class="track-list" id="trackList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
+<section id="contact">
+  <div class="section-tag" style="display:block;text-align:center;border-left:none;padding-left:0;border-bottom:none;">
+    <span style="border-left:3px solid var(--gold);padding-left:12px;">Contact Us</span>
+  </div>
+  <h2 class="section-title" style="text-align:center;">Ready to Launch Your<br><span style="color:var(--gold)">Campaign?</span></h2>
+  <div class="gold-divider" style="margin:20px auto 30px;"></div>
+
+  <p class="contact-subtitle">Reach out to DigiVardhan Marketing today. Our campaign content team is ready to help you win the digital battlefield.</p>
+
+  <div class="contact-buttons">
+    <a href="tel:+919999999999" class="btn-call">📞 Call Us Now</a>
+    <a href="https://wa.me/919999999999" class="btn-whatsapp" target="_blank">💬 WhatsApp Us</a>
+    <a href="mailto:info@digivardhan.com" class="btn-contact-main">✉️ Email Campaign Team</a>
+  </div>
+
+  <div class="contact-form">
+    <div class="form-title">Send a Campaign Enquiry</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="Leader / Candidate Name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Campaign Type</label>
+      <select class="form-select">
+        <option value="">Select Campaign Type</option>
+        <option>Lok Sabha / Vidhan Sabha Election</option>
+        <option>Municipal / Panchayat Election</option>
+        <option>Leader Digital Branding</option>
+        <option>Social Media Management</option>
+        <option>AI Campaign Video</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tell us about your campaign</label>
+      <textarea class="form-textarea" placeholder="Describe your campaign goals, constituency, timeline..."></textarea>
+    </div>
+    <button class="form-submit" onclick="alert('Thank you! Our campaign team will contact you within 24 hours. 🙏')">
+      🚀 Submit Campaign Enquiry
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">🏛️ DigiVardhan Marketing</div>
+  <div class="footer-copy">© 2024 DigiVardhan Marketing. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+/* ─── PARTICLES ─── */
+(function(){
+  const c = document.getElementById('particles');
+  for(let i=0;i<30;i++){
+    const p = document.createElement('div');
+    p.className='particle';
+    p.style.left = Math.random()*100+'%';
+    p.style.width = p.style.height = (Math.random()*3+1)+'px';
+    p.style.animationDuration = (Math.random()*15+10)+'s';
+    p.style.animationDelay = (Math.random()*15)+'s';
+    c.appendChild(p);
+  }
+})();
+
+/* ─── WAVEFORM ─── */
+(function(){
+  const wf = document.getElementById('waveform');
+  const bars = 60;
+  for(let i=0;i<bars;i++){
+    const b = document.createElement('div');
+    b.className='wave-bar';
+    const h = 20 + Math.random()*40;
+    b.style.height = h+'px';
+    wf.appendChild(b);
+  }
+})();
+
+/* ─── AUDIO PLAYER ─── */
+const tracks = [
+  {title:'Chunav Campaign – Hindi',      dur:'2:45', seconds:165, emoji:'🗳️'},
+  {title:'Vikas Ka Vaada – Jingle',      dur:'1:30', seconds:90,  emoji:'✨'},
+  {title:'Neta Ji Promo – Deep Voice',   dur:'3:10', seconds:190, emoji:'🎙️'},
+  {title:'Rally Announcement – Urdu',    dur:'2:00', seconds:120, emoji:'📣'},
+  {title:'Youth Campaign – Energetic',   dur:'1:55', seconds:115, emoji:'🔥'},
+];
+
+let currentTrack = 0;
+let playing = false;
+let progress = 0;
+let interval = null;
+
+const playBtn = document.getElementById('playBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const slider  = document.getElementById('progressSlider');
+const curTimeEl = document.getElementById('currentTime');
+const totTimeEl = document.getElementById('totalTime');
+const titleEl   = document.getElementById('trackTitle');
+const durEl     = document.getElementById('trackDur');
+const trackList = document.getElementById('trackList');
+
+function formatTime(s){
+  const m=Math.floor(s/60);
+  const sec=Math.floor(s%60);
+  return m+':'+(sec<10?'0':'')+sec;
+}
+
+function loadTrack(i){
+  currentTrack = i;
+  const t = tracks[i];
+  titleEl.textContent = t.title;
+  durEl.textContent = t.dur;
+  totTimeEl.textContent = t.dur;
+  progress = 0;
+  slider.value = 0;
+  curTimeEl.textContent = '0:00';
+  updateWaveform(0);
+  renderList();
+}
+
+function updateWaveform(pct){
+  const bars = document.querySelectorAll('.wave-bar');
+  const played = Math.floor(bars.length * pct/100);
+  bars.forEach((b,i)=>{
+    b.classList.remove('active','played');
+    if(i===played) b.classList.add('active');
+    else if(i<played) b.classList.add('played');
+  });
+}
+
+function tick(){
+  const t = tracks[currentTrack];
+  progress += 100/t.seconds;
+  if(progress>=100){
+    progress=0;
+    playing=false;
+    clearInterval(interval);
+    playBtn.textContent='▶';
+    nextTrack();
+    return;
+  }
+  slider.value = progress;
+  curTimeEl.textContent = formatTime(progress*t.seconds/100);
+  updateWaveform(progress);
+}
+
+function togglePlay(){
+  playing=!playing;
+  if(playing){
+    playBtn.textContent='⏸';
+    interval = setInterval(tick, 1000);
+  } else {
+    playBtn.textContent='▶';
+    clearInterval(interval);
+  }
+}
+
+function nextTrack(){
+  loadTrack((currentTrack+1)%tracks.length);
+  if(playing) setInterval(tick,1000);
+}
+function prevTrack(){
+  loadTrack((currentTrack-1+tracks.length)%tracks.length);
+}
+
+playBtn.addEventListener('click',togglePlay);
+nextBtn.addEventListener('click',()=>{clearInterval(interval);nextTrack();});
+prevBtn.addEventListener('click',()=>{clearInterval(interval);prevTrack();});
+slider.addEventListener('input',()=>{
+  progress = +slider.value;
+  const t=tracks[currentTrack];
+  curTimeEl.textContent = formatTime(progress*t.seconds/100);
+  updateWaveform(progress);
+});
+
+function renderList(){
+  trackList.innerHTML='';
+  tracks.forEach((t,i)=>{
+    const el = document.createElement('div');
+    el.className = 'track-item'+(i===currentTrack?' active':'');
+    el.innerHTML=`
+      <div class="track-num">${i===currentTrack&&playing?'🔊':(i+1)}</div>
+      <div class="track-info">
+        <div class="track-name">${t.emoji} ${t.title}</div>
+        <div class="track-sub">Campaign Voice Recording</div>
+      </div>
+      <div class="track-dur">${t.dur}</div>
+    `;
+    el.addEventListener('click',()=>{
+      clearInterval(interval);
+      playing=false;
+      playBtn.textContent='▶';
+      loadTrack(i);
+    });
+    trackList.appendChild(el);
+  });
+}
+
+loadTrack(0);
+
+/* ─── SCROLL REVEAL ─── */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.service-card,.feature-item,.video-item,.about-main-img').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(30px)';
+  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

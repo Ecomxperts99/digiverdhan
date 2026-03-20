@@ -67,7 +67,6 @@ nav{
 .float-call{background:var(--call-blue);}
 .float-call .fb-icon{background:rgba(0,0,0,.15);}
 .float-btn:hover{transform:translateX(-4px) scale(1.04);box-shadow:0 8px 26px rgba(0,0,0,.55);}
-/* pulse ring */
 .float-wa::before{content:'';position:absolute;width:52px;height:52px;border-radius:50%;right:0;border:2px solid var(--green);animation:fPulse 2.2s ease-out infinite;pointer-events:none;}
 @keyframes fPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
 
@@ -124,31 +123,106 @@ section{padding:76px 40px;}
 .tag{padding:6px 15px;border-radius:3px;border:1px solid var(--border);font-size:.82rem;letter-spacing:.07em;color:var(--muted);transition:border-color .2s,color .2s;}
 .tag:hover{border-color:var(--gold);color:var(--gold);}
 
-/* VIDEOS */
+/* =============================================
+   VIDEO SECTION — GOOGLE DRIVE PLAYER
+   ============================================= */
 #videos{background:var(--dark);}
 .video-section-header{text-align:center;margin-bottom:46px;}
 .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
-.video-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s;}
+
+/* Thumbnail card (shown before click) */
+.video-card{
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  overflow:hidden;cursor:pointer;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+}
 .video-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 10px 34px rgba(212,175,55,.2);}
-.video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;}
-.video-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
-.video-card:hover .video-thumb img{transform:scale(1.06);}
-.play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.34);transition:background .3s;}
-.play-btn svg{width:48px;height:48px;filter:drop-shadow(0 0 12px rgba(212,175,55,.6));transition:transform .3s;}
-.video-card:hover .play-btn svg{transform:scale(1.12);}
-.video-card:hover .play-btn{background:rgba(0,0,0,.16);}
+.video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0a0a14;}
+.thumb-img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.video-card:hover .thumb-img{transform:scale(1.06);}
+
+/* Emoji placeholder thumbnail when no real thumb */
+.thumb-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;background:linear-gradient(135deg,#13131F,#1A1A2E);
+}
+
+.play-btn{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.34);transition:background .3s;
+}
+.play-btn svg{width:54px;height:54px;filter:drop-shadow(0 0 14px rgba(212,175,55,.7));transition:transform .3s;}
+.video-card:hover .play-btn svg{transform:scale(1.14);}
+.video-card:hover .play-btn{background:rgba(0,0,0,.12);}
 .video-info{padding:13px 15px;}
 .video-info h4{font-family:'Cinzel',serif;font-size:.92rem;color:#fff;margin-bottom:4px;}
 .video-info p{font-size:.8rem;color:var(--muted);}
 
-/* LIGHTBOX */
-.lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;}
-.lightbox.open{display:flex;}
-.lightbox-inner{width:min(860px,94vw);border:1.5px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 0 60px rgba(212,175,55,.18);}
-.yt-frame{position:relative;aspect-ratio:16/9;}
-.yt-frame iframe{width:100%;height:100%;display:block;border:none;}
-.lightbox-close{position:absolute;top:16px;right:18px;background:rgba(10,10,15,.8);border:1.5px solid var(--border);color:var(--gold);width:40px;height:40px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
-.lightbox-close:hover{background:rgba(212,175,55,.2);}
+/* ── Google Drive inline player (hidden by default) ── */
+.gdrive-player{
+  display:none;
+  flex-direction:column;
+  background:var(--card);
+  border:1px solid var(--gold);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 8px 36px rgba(212,175,55,.22);
+  animation:playerFadeIn .35s ease;
+}
+.gdrive-player.active{display:flex;}
+@keyframes playerFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.gdrive-player-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;background:rgba(212,175,55,.06);
+  border-bottom:1px solid var(--border);
+}
+.gdrive-player-title{font-family:'Cinzel',serif;font-size:.88rem;color:var(--gold-light);}
+.gdrive-player-close{
+  background:none;border:1.5px solid var(--border);color:var(--gold);
+  width:32px;height:32px;border-radius:50%;font-size:.85rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s;flex-shrink:0;
+}
+.gdrive-player-close:hover{background:rgba(212,175,55,.15);border-color:var(--gold);}
+
+.gdrive-frame-wrap{position:relative;aspect-ratio:16/9;background:#000;}
+.gdrive-frame-wrap iframe{width:100%;height:100%;border:none;display:block;}
+
+/* Loading spinner inside player */
+.gdrive-loading{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;
+  background:#000;color:var(--muted);font-size:.8rem;letter-spacing:.1em;
+  text-transform:uppercase;pointer-events:none;
+  transition:opacity .4s;
+}
+.gdrive-loading.hidden{opacity:0;}
+.spinner{width:36px;height:36px;border:3px solid rgba(212,175,55,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Open-in-Drive link */
+.gdrive-player-footer{
+  padding:8px 14px;display:flex;align-items:center;justify-content:flex-end;gap:10px;
+  border-top:1px solid var(--border);background:rgba(0,0,0,.2);
+}
+.gdrive-open-link{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--muted);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;transition:color .2s;
+}
+.gdrive-open-link:hover{color:var(--gold);}
+.gdrive-open-link svg{width:13px;height:13px;fill:currentColor;flex-shrink:0;}
+
+/* Wrapper holds BOTH thumb-card and player stacked */
+.video-slot{display:flex;flex-direction:column;gap:0;}
+
+/* When player is active, hide thumb */
+.video-slot.playing .video-card{display:none;}
+.video-slot.playing .gdrive-player{display:flex;}
+
+/* LIGHTBOX (kept as fallback, not used for GDrive) */
+.lightbox{display:none;}
 
 /* VOICE SLIDER */
 #voice{background:var(--panel);}
@@ -230,7 +304,6 @@ footer p{color:var(--muted);font-size:.8rem;}
   footer{flex-direction:column;align-items:center;text-align:center;padding:26px 18px;}
   .contact-cta-btns{flex-direction:column;}
   .cta-call,.cta-wa{justify-content:center;}
-  /* floating — icon only on small screens */
   .float-btns{right:13px;bottom:20px;gap:10px;}
   .float-btn .fb-label{display:none;}
   .float-btn{padding:0;width:52px;border-radius:50%;}
@@ -353,46 +426,137 @@ footer p{color:var(--muted);font-size:.8rem;}
 
 <div class="gold-divider"></div>
 
-<!-- VIDEOS -->
+<!-- ══════════════════════════════════════════════
+     VIDEOS — GOOGLE DRIVE INLINE PLAYER
+     ══════════════════════════════════════════════
+     HOW TO UPDATE YOUR DRIVE LINKS:
+     1. Upload video to Google Drive
+     2. Right-click → Share → "Anyone with the link"
+     3. Copy the File ID from the share URL:
+        https://drive.google.com/file/d/FILE_ID/view
+     4. Replace the data-gdrive-id value below with your FILE_ID
+     5. For thumbnails: replace data-thumb with any image URL
+        (or leave blank for the emoji placeholder)
+     ══════════════════════════════════════════════ -->
 <section id="videos">
   <div class="video-section-header fade-up">
     <div class="section-label">Portfolio</div>
     <h2 class="section-title">Campaign Content Showcase</h2>
-    <p class="section-desc" style="margin:0 auto">Click any thumbnail to watch inline — no popups, no redirects.</p>
+    <p class="section-desc" style="margin:0 auto">Click any thumbnail to play directly from Google Drive — no popups, no redirects.</p>
   </div>
-  <div class="video-grid">
-    <div class="video-card fade-up" data-vid="https://drive.google.com/file/d/1vsdnGD1s8JVHt3I8EOkDJrEZ_ybd1sUI/view" data-title="Political Rally Highlight">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt=""/><div class="play-btn"><svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg></div></div>
-      <div class="video-info"><h4>Political Rally Highlight</h4><p>Cinematic reel for voter outreach</p></div>
-    </div>
-    <div class="video-card fade-up" data-vid="ScMzIvxBSi4" data-title="Leader Branding Motion" style="transition-delay:.08s">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg" alt=""/><div class="play-btn"><svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg></div></div>
-      <div class="video-info"><h4>Leader Branding – Motion</h4><p>AI motion graphics & visual identity</p></div>
-    </div>
-    <div class="video-card fade-up" data-vid="9bZkp7q19f0" data-title="Social Media Reel" style="transition-delay:.16s">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/9bZkp7q19f0/hqdefault.jpg" alt=""/><div class="play-btn"><svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg></div></div>
-      <div class="video-info"><h4>Social Media Reel</h4><p>Viral-ready short-form content</p></div>
-    </div>
-    <div class="video-card fade-up" data-vid="LXb3EKWsInQ" data-title="Voter Connect Series" style="transition-delay:.04s">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/LXb3EKWsInQ/hqdefault.jpg" alt=""/><div class="play-btn"><svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg></div></div>
-      <div class="video-info"><h4>Voter Connect Series</h4><p>Ground-level campaign documentation</p></div>
-    </div>
-    <div class="video-card fade-up" data-vid="kJQP7kiw5Fk" data-title="AI Election Anthem" style="transition-delay:.12s">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/kJQP7kiw5Fk/hqdefault.jpg" alt=""/><div class="play-btn"><svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg></div></div>
-      <div class="video-info"><h4>AI Election Anthem</h4><p>AI-generated campaign video</p></div>
-    </div>
-    <div class="video-card fade-up" data-vid="JGwWNGJdvx8" data-title="Digital Outreach Series" style="transition-delay:.2s">
-      <div class="video-thumb"><img src="https://img.youtube.com/vi/JGwWNGJdvx8/hqdefault.jpg" alt=""/><div class="play-btn"><svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg></div></div>
-      <div class="video-info"><h4>Digital Outreach Series</h4><p>Door-to-door meets digital storytelling</p></div>
-    </div>
-  </div>
-</section>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <div class="lightbox-inner"><div class="yt-frame" id="ytFrame"></div></div>
-  <button class="lightbox-close" id="lightboxClose">✕</button>
-</div>
+  <div class="video-grid" id="videoGrid">
+
+    <!-- CARD 1 -->
+    <div class="video-slot fade-up">
+      <div class="video-card"
+           data-gdrive-id="1vsdnGD1s8JVHt3I8EOkDJrEZ_ybd1sUI"
+           data-title="Political Rally Highlight"
+           data-thumb=""
+           data-emoji="🎤">
+        <div class="video-thumb">
+          <div class="thumb-placeholder">🎤</div>
+          <div class="play-btn">
+            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
+          </div>
+        </div>
+        <div class="video-info"><h4>Political Rally Highlight</h4><p>Cinematic reel for voter outreach</p></div>
+      </div>
+      <div class="https://drive.google.com/file/d/1vsdnGD1s8JVHt3I8EOkDJrEZ_ybd1sUI/view"></div>
+    </div>
+
+    <!-- CARD 2 — replace FILE_ID_2 with your real Google Drive file ID -->
+    <div class="video-slot fade-up" style="transition-delay:.08s">
+      <div class="video-card"
+           data-gdrive-id="FILE_ID_2"
+           data-title="Leader Branding – Motion"
+           data-thumb=""
+           data-emoji="🎞️">
+        <div class="video-thumb">
+          <div class="thumb-placeholder">🎞️</div>
+          <div class="play-btn">
+            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
+          </div>
+        </div>
+        <div class="video-info"><h4>Leader Branding – Motion</h4><p>AI motion graphics & visual identity</p></div>
+      </div>
+      <div class="gdrive-player"></div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="video-slot fade-up" style="transition-delay:.16s">
+      <div class="video-card"
+           data-gdrive-id="FILE_ID_3"
+           data-title="Social Media Reel"
+           data-thumb=""
+           data-emoji="📱">
+        <div class="video-thumb">
+          <div class="thumb-placeholder">📱</div>
+          <div class="play-btn">
+            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
+          </div>
+        </div>
+        <div class="video-info"><h4>Social Media Reel</h4><p>Viral-ready short-form content</p></div>
+      </div>
+      <div class="gdrive-player"></div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="video-slot fade-up" style="transition-delay:.04s">
+      <div class="video-card"
+           data-gdrive-id="FILE_ID_4"
+           data-title="Voter Connect Series"
+           data-thumb=""
+           data-emoji="🗳️">
+        <div class="video-thumb">
+          <div class="thumb-placeholder">🗳️</div>
+          <div class="play-btn">
+            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
+          </div>
+        </div>
+        <div class="video-info"><h4>Voter Connect Series</h4><p>Ground-level campaign documentation</p></div>
+      </div>
+      <div class="gdrive-player"></div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="video-slot fade-up" style="transition-delay:.12s">
+      <div class="video-card"
+           data-gdrive-id="FILE_ID_5"
+           data-title="AI Election Anthem"
+           data-thumb=""
+           data-emoji="🎵">
+        <div class="video-thumb">
+          <div class="thumb-placeholder">🎵</div>
+          <div class="play-btn">
+            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
+          </div>
+        </div>
+        <div class="video-info"><h4>AI Election Anthem</h4><p>AI-generated campaign video</p></div>
+      </div>
+      <div class="gdrive-player"></div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="video-slot fade-up" style="transition-delay:.2s">
+      <div class="video-card"
+           data-gdrive-id="FILE_ID_6"
+           data-title="Digital Outreach Series"
+           data-thumb=""
+           data-emoji="📡">
+        <div class="video-thumb">
+          <div class="thumb-placeholder">📡</div>
+          <div class="play-btn">
+            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
+          </div>
+        </div>
+        <div class="video-info"><h4>Digital Outreach Series</h4><p>Door-to-door meets digital storytelling</p></div>
+      </div>
+      <div class="gdrive-player"></div>
+    </div>
+
+  </div><!-- /video-grid -->
+</section>
 
 <div class="gold-divider"></div>
 
@@ -502,27 +666,91 @@ footer p{color:var(--muted);font-size:.8rem;}
 </footer>
 
 <script>
-// HAMBURGER
+/* ─── HAMBURGER ─── */
 const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
 hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileMenu.classList.toggle('open');});
 function closeMob(){hamburger.classList.remove('open');mobileMenu.classList.remove('open');}
 
-// YOUTUBE LIGHTBOX
-const lightbox=document.getElementById('lightbox'),ytFrame=document.getElementById('ytFrame');
-document.querySelectorAll('.video-card').forEach(c=>{
-  c.addEventListener('click',()=>{
-    ytFrame.innerHTML=`<iframe src="https://www.youtube.com/embed/${c.dataset.vid}?autoplay=1&rel=0"
-      allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
-      allowfullscreen style="width:100%;height:100%;border:none;display:block;"></iframe>`;
-    lightbox.classList.add('open');document.body.style.overflow='hidden';
+/* ─────────────────────────────────────────────
+   GOOGLE DRIVE INLINE VIDEO PLAYER
+   ─────────────────────────────────────────────
+   Logic:
+   • Click thumbnail → build iframe inside .gdrive-player
+   • Embed URL: https://drive.google.com/file/d/FILE_ID/preview
+   • Show loading spinner until iframe fires load event
+   • Close button restores thumbnail view
+   • Only one video plays at a time (others auto-close)
+   ───────────────────────────────────────────── */
+function buildGDrivePlayer(slot, card) {
+  const fileId  = card.dataset.gdriveId;
+  const title   = card.dataset.title || 'Campaign Video';
+  const player  = slot.querySelector('.gdrive-player');
+
+  // Build player HTML
+  player.innerHTML = `
+    <div class="gdrive-player-header">
+      <span class="gdrive-player-title">▶ ${title}</span>
+      <button class="gdrive-player-close" title="Close">✕</button>
+    </div>
+    <div class="gdrive-frame-wrap">
+      <div class="gdrive-loading">
+        <div class="spinner"></div>
+        <span>Loading video…</span>
+      </div>
+      <iframe
+        src="https://drive.google.com/file/d/${fileId}/preview"
+        allow="autoplay"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    </div>
+    <div class="gdrive-player-footer">
+      <a class="gdrive-open-link"
+         href="https://drive.google.com/file/d/${fileId}/view"
+         target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M14 3v2H5v14h14v-9h2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h9zm7-2v6h-2V4.414l-8.293 8.293-1.414-1.414L18.586 3H15V1h6z"/></svg>
+        Open in Google Drive
+      </a>
+    </div>`;
+
+  // Hide spinner when iframe loads
+  const iframe  = player.querySelector('iframe');
+  const loading = player.querySelector('.gdrive-loading');
+  iframe.addEventListener('load', () => loading.classList.add('hidden'));
+
+  // Close button
+  player.querySelector('.gdrive-player-close').addEventListener('click', () => {
+    closeSlot(slot);
+  });
+}
+
+function openSlot(slot) {
+  // Close any other open slot first
+  document.querySelectorAll('.video-slot.playing').forEach(s => {
+    if (s !== slot) closeSlot(s);
+  });
+  slot.classList.add('playing');
+  // Scroll player into view smoothly
+  slot.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeSlot(slot) {
+  slot.classList.remove('playing');
+  // Destroy iframe to stop playback
+  const player = slot.querySelector('.gdrive-player');
+  player.innerHTML = '';
+}
+
+// Attach click handlers to all video cards
+document.querySelectorAll('.video-slot').forEach(slot => {
+  const card = slot.querySelector('.video-card');
+  card.addEventListener('click', () => {
+    buildGDrivePlayer(slot, card);
+    openSlot(slot);
   });
 });
-document.getElementById('lightboxClose').addEventListener('click',closeLB);
-lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLB();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
-function closeLB(){ytFrame.innerHTML='';lightbox.classList.remove('open');document.body.style.overflow='';}
 
-// VOICE SLIDER
+/* ─── VOICE SLIDER ─── */
 let cur=0;const tot=4;
 const slider=document.getElementById('voiceSlider');
 const dots=document.querySelectorAll('.sl-dot');
@@ -534,12 +762,11 @@ function goTo(n){
 document.getElementById('slPrev').addEventListener('click',()=>goTo(cur-1));
 document.getElementById('slNext').addEventListener('click',()=>goTo(cur+1));
 dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i)));
-// touch swipe
 let tx=0;
 slider.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX;},{passive:true});
 slider.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(Math.abs(dx)>48)goTo(dx<0?cur+1:cur-1);},{passive:true});
 
-// FAKE AUDIO
+/* ─── FAKE AUDIO PLAYER ─── */
 const aS={};
 function togglePlay(btn){
   const pl=btn.closest('.audio-player'),src=pl.dataset.src;
@@ -567,11 +794,11 @@ function seekAudio(track,e){
   s.curr.textContent=Math.floor(s.elapsed/60)+':'+String(Math.floor(s.elapsed%60)).padStart(2,'0');
 }
 
-// FADE-UP
+/* ─── FADE-UP OBSERVER ─── */
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
-// FORM
+/* ─── CONTACT FORM ─── */
 function submitForm(){alert('✅ Inquiry sent!\nWe will contact you within 24 hours.');}
 </script>
 </body>

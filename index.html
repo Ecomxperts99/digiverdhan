@@ -4,332 +4,221 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>DigiVardhan Marketing – Political Digital Campaign</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --gold: #D4A820;
-    --gold-light: #F5CC45;
-    --gold-dark: #9A7510;
-    --saffron: #FF6B00;
-    --saffron-light: #FF8C38;
-    --deep: #0A0A0F;
-    --dark: #10101A;
-    --card: #14141F;
-    --card2: #1A1A2A;
-    --border: rgba(212,168,32,0.25);
-    --text: #E8E0CC;
-    --text-dim: #998870;
-    --white: #FFFFFF;
+    --gold:#D4A820;--gold-light:#F5CC45;--gold-dark:#9A7510;
+    --saffron:#FF6B00;--saffron-light:#FF8C38;
+    --deep:#0A0A0F;--dark:#10101A;--card:#14141F;--card2:#1A1A2A;
+    --border:rgba(212,168,32,0.25);--text:#E8E0CC;--text-dim:#998870;--white:#fff;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--deep);
-    color: var(--text);
-    font-family: 'Rajdhani', 'Noto Sans Devanagari', sans-serif;
-    overflow-x: hidden;
-  }
-  body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; opacity: 0.4;
-  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--deep);color:var(--text);font-family:'Rajdhani',sans-serif;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;opacity:.4}
 
-  /* FLOAT CTA */
-  .float-cta {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
-    display: flex;
-    box-shadow: 0 -4px 30px rgba(0,0,0,0.6);
+  /* ── VIDEO MODAL ── */
+  .vmodal-overlay{
+    display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);
+    align-items:center;justify-content:center;
   }
-  .float-cta a {
-    flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 16px; font-family: 'Rajdhani', sans-serif;
-    font-size: 1.05rem; font-weight: 700; letter-spacing: 1px;
-    text-decoration: none; transition: filter 0.2s;
+  .vmodal-overlay.active{display:flex}
+  .vmodal-box{
+    position:relative;width:min(420px,92vw);
+    background:#0d0d16;border:1px solid var(--border);
+    border-radius:14px;overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 0 1px rgba(212,168,32,0.15);
+    animation:modalPop .3s cubic-bezier(.34,1.56,.64,1) both;
   }
-  .float-cta a:hover { filter: brightness(1.15); }
-  .float-cta .btn-call { background: var(--saffron); color: #fff; }
-  .float-cta .btn-wa   { background: #128C7E; color: #fff; }
-  .float-cta a svg { width: 20px; height: 20px; flex-shrink: 0; }
+  @keyframes modalPop{from{opacity:0;transform:scale(.85) translateY(30px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .vmodal-top{
+    background:linear-gradient(90deg,var(--gold-dark),var(--saffron));
+    height:3px;
+  }
+  .vmodal-title{
+    padding:14px 48px 14px 18px;
+    font-family:'Cinzel Decorative',serif;font-size:.85rem;
+    color:var(--gold-light);letter-spacing:1px;
+    border-bottom:1px solid var(--border);
+  }
+  .vmodal-close{
+    position:absolute;top:10px;right:12px;
+    width:30px;height:30px;border-radius:50%;
+    background:rgba(255,255,255,0.08);border:none;cursor:pointer;
+    color:var(--text-dim);font-size:1.1rem;line-height:30px;text-align:center;
+    transition:all .2s;
+  }
+  .vmodal-close:hover{background:rgba(255,107,0,.3);color:#fff}
+  .vmodal-frame-wrap{
+    /* Shorts = 9:16 ratio */
+    position:relative;padding-bottom:177.78%;height:0;overflow:hidden;
+  }
+  .vmodal-frame-wrap iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:none;
+  }
+  .vmodal-footer{
+    padding:12px 18px;display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--border);
+    background:rgba(0,0,0,.3);
+  }
+  .vmodal-brand{font-size:.72rem;color:var(--text-dim);letter-spacing:1.5px}
+  .vmodal-brand strong{color:var(--gold)}
+  .vmodal-wa{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:7px 16px;border-radius:5px;
+    background:#128C7E;color:#fff;text-decoration:none;
+    font-size:.78rem;font-weight:700;letter-spacing:1px;transition:filter .2s;
+  }
+  .vmodal-wa:hover{filter:brightness(1.15)}
 
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 900;
-    background: rgba(10,10,15,0.92);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 5%;
-  }
-  .logo-wrap { display: flex; align-items: center; gap: 14px; }
-  .logo-badge {
-    width: 52px; height: 52px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--saffron), var(--gold));
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 22px rgba(212,168,32,0.45);
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.2rem; font-weight: 900; color: var(--deep);
-    flex-shrink: 0; position: relative; overflow: hidden;
-  }
-  .logo-badge::after {
-    content: ''; position: absolute; inset: 3px; border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,0.3);
-  }
-  .logo-text-wrap { display: flex; flex-direction: column; }
-  .logo-name {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.1rem; font-weight: 700;
-    background: linear-gradient(90deg, var(--gold-light), var(--saffron-light));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    line-height: 1.2;
-  }
-  .logo-sub { font-size: 0.68rem; color: var(--text-dim); letter-spacing: 2.5px; text-transform: uppercase; }
-  .nav-cta { display: flex; gap: 10px; }
-  .nav-cta a {
-    padding: 9px 20px; border-radius: 4px;
-    font-family: 'Rajdhani', sans-serif; font-weight: 700;
-    font-size: 0.9rem; letter-spacing: 1px; text-decoration: none;
-    transition: all 0.2s;
-  }
-  .nc-view { border: 1.5px solid var(--gold); color: var(--gold); background: transparent; }
-  .nc-view:hover { background: var(--gold); color: var(--deep); }
-  .nc-contact { background: linear-gradient(90deg, var(--saffron), var(--gold)); color: var(--deep); }
-  .nc-contact:hover { filter: brightness(1.1); }
+  /* ── FLOAT CTA ── */
+  .float-cta{position:fixed;bottom:0;left:0;right:0;z-index:1000;display:flex;box-shadow:0 -4px 30px rgba(0,0,0,.6)}
+  .float-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:1px;text-decoration:none;transition:filter .2s}
+  .float-cta a:hover{filter:brightness(1.15)}
+  .float-cta .btn-call{background:var(--saffron);color:#fff}
+  .float-cta .btn-wa{background:#128C7E;color:#fff}
+  .float-cta a svg{width:20px;height:20px;flex-shrink:0}
 
-  /* HERO */
-  .hero {
-    position: relative; min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center;
-    justify-content: center; text-align: center;
-    padding: 120px 5% 100px; overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,0,0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(212,168,32,0.1) 0%, transparent 60%),
-      var(--deep);
-  }
-  .hero-ring {
-    position: absolute; border-radius: 50%;
-    border: 1px solid rgba(212,168,32,0.08); z-index: 0;
-    top: 50%; left: 50%; transform: translate(-50%,-50%);
-  }
-  .hero-badge {
-    position: relative; z-index: 1;
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(212,168,32,0.1); border: 1px solid rgba(212,168,32,0.35);
-    border-radius: 100px; padding: 7px 18px;
-    font-size: 0.8rem; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--gold-light); margin-bottom: 28px;
-    animation: fadeUp 0.8s ease both;
-  }
-  .dot { width: 6px; height: 6px; background: var(--saffron); border-radius: 50%; animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-  @keyframes shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
-  @keyframes scrollLine { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform:scaleY(1);transform-origin:bottom} }
-  @keyframes borderMove { 0%{background-position:0%} 100%{background-position:200%} }
+  /* ── NAV ── */
+  nav{position:sticky;top:0;z-index:900;background:rgba(10,10,15,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:12px 5%}
+  .logo-wrap{display:flex;align-items:center;gap:14px}
+  .logo-badge{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--saffron),var(--gold));display:flex;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(212,168,32,.45);font-family:'Cinzel Decorative',serif;font-size:1.2rem;font-weight:900;color:var(--deep);flex-shrink:0;position:relative;overflow:hidden}
+  .logo-badge::after{content:'';position:absolute;inset:3px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3)}
+  .logo-text-wrap{display:flex;flex-direction:column}
+  .logo-name{font-family:'Cinzel Decorative',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,var(--gold-light),var(--saffron-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+  .logo-sub{font-size:.68rem;color:var(--text-dim);letter-spacing:2.5px;text-transform:uppercase}
+  .nav-cta{display:flex;gap:10px}
+  .nav-cta a{padding:9px 20px;border-radius:4px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:1px;text-decoration:none;transition:all .2s}
+  .nc-view{border:1.5px solid var(--gold);color:var(--gold);background:transparent}
+  .nc-view:hover{background:var(--gold);color:var(--deep)}
+  .nc-contact{background:linear-gradient(90deg,var(--saffron),var(--gold));color:var(--deep)}
+  .nc-contact:hover{filter:brightness(1.1)}
 
-  .hero h1 {
-    position: relative; z-index: 1;
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(1.8rem, 5vw, 3.8rem);
-    font-weight: 900; line-height: 1.18;
-    background: linear-gradient(135deg, var(--gold-light) 0%, var(--saffron-light) 50%, var(--gold-light) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-size: 200% 200%;
-    animation: fadeUp 0.8s 0.15s ease both, shimmer 4s infinite linear;
-    margin-bottom: 20px;
-  }
-  .hero-services {
-    position: relative; z-index: 1;
-    display: flex; flex-wrap: wrap; gap: 10px;
-    justify-content: center; margin-bottom: 24px;
-    animation: fadeUp 0.8s 0.3s ease both;
-  }
-  .hero-services span {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(212,168,32,0.2);
-    border-radius: 4px; padding: 5px 14px;
-    font-size: 0.85rem; color: var(--text-dim);
-  }
-  .hero-tagline {
-    position: relative; z-index: 1;
-    font-size: 1.08rem; color: var(--text-dim);
-    max-width: 560px; line-height: 1.75; margin-bottom: 40px;
-    animation: fadeUp 0.8s 0.45s ease both;
-  }
-  .hero-btns {
-    position: relative; z-index: 1;
-    display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;
-    animation: fadeUp 0.8s 0.6s ease both;
-  }
-  .btn-gold {
-    padding: 14px 32px; border-radius: 5px;
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
-    background-size: 200%; color: var(--deep);
-    font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700;
-    letter-spacing: 1.5px; text-decoration: none; border: none; cursor: pointer;
-    transition: background-position 0.4s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 4px 20px rgba(212,168,32,0.3); text-transform: uppercase;
-  }
-  .btn-gold:hover { background-position: right; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,168,32,0.5); }
-  .btn-outline {
-    padding: 14px 32px; border-radius: 5px;
-    border: 2px solid var(--saffron); color: var(--saffron); background: transparent;
-    font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700;
-    letter-spacing: 1.5px; text-decoration: none; cursor: pointer;
-    transition: all 0.3s; text-transform: uppercase;
-  }
-  .btn-outline:hover { background: var(--saffron); color: #fff; transform: translateY(-2px); }
-  .scroll-hint {
-    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-    z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
-    color: var(--text-dim); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
-    animation: fadeIn 1s 1.2s both;
-  }
-  .scroll-hint::after {
-    content: ''; width: 1px; height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollLine 2s infinite;
-  }
+  /* ── HERO ── */
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 5% 100px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,107,0,.12) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 20% 80%,rgba(212,168,32,.1) 0%,transparent 60%),var(--deep)}
+  .hero-ring{position:absolute;border-radius:50%;border:1px solid rgba(212,168,32,.08);z-index:0;top:50%;left:50%;transform:translate(-50%,-50%)}
+  .hero-badge{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,32,.1);border:1px solid rgba(212,168,32,.35);border-radius:100px;padding:7px 18px;font-size:.8rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-light);margin-bottom:28px;animation:fadeUp .8s ease both}
+  .dot{width:6px;height:6px;background:var(--saffron);border-radius:50%;animation:pulse 1.5s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  @keyframes scrollLine{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+  @keyframes borderMove{0%{background-position:0%}100%{background-position:200%}}
+  .hero h1{position:relative;z-index:1;font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,5vw,3.8rem);font-weight:900;line-height:1.18;background:linear-gradient(135deg,var(--gold-light) 0%,var(--saffron-light) 50%,var(--gold-light) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:fadeUp .8s .15s ease both,shimmer 4s infinite linear;margin-bottom:20px}
+  .hero-services{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:24px;animation:fadeUp .8s .3s ease both}
+  .hero-services span{background:rgba(255,255,255,.04);border:1px solid rgba(212,168,32,.2);border-radius:4px;padding:5px 14px;font-size:.85rem;color:var(--text-dim)}
+  .hero-tagline{position:relative;z-index:1;font-size:1.08rem;color:var(--text-dim);max-width:560px;line-height:1.75;margin-bottom:40px;animation:fadeUp .8s .45s ease both}
+  .hero-btns{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;animation:fadeUp .8s .6s ease both}
+  .btn-gold{padding:14px 32px;border-radius:5px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light));background-size:200%;color:var(--deep);font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;text-decoration:none;border:none;cursor:pointer;transition:background-position .4s,transform .2s,box-shadow .3s;box-shadow:0 4px 20px rgba(212,168,32,.3);text-transform:uppercase}
+  .btn-gold:hover{background-position:right;transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,168,32,.5)}
+  .btn-outline{padding:14px 32px;border-radius:5px;border:2px solid var(--saffron);color:var(--saffron);background:transparent;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;text-decoration:none;cursor:pointer;transition:all .3s;text-transform:uppercase}
+  .btn-outline:hover{background:var(--saffron);color:#fff;transform:translateY(-2px)}
+  .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text-dim);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;animation:fadeIn 1s 1.2s both}
+  .scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollLine 2s infinite}
 
-  /* SECTION */
-  section { position: relative; z-index: 1; padding: 90px 5%; }
-  .section-label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--saffron); margin-bottom: 10px; font-weight: 700; }
-  .section-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700;
-    background: linear-gradient(90deg, var(--gold-light), var(--white));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    margin-bottom: 16px; line-height: 1.3;
-  }
-  .section-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
-  .section-divider::before { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
-  .section-divider::after  { content: ''; flex: 1; height: 1px; background: linear-gradient(to left, var(--border), transparent); }
-  .divider-gem { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+  /* ── SECTIONS ── */
+  section{position:relative;z-index:1;padding:90px 5%}
+  .section-label{font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--saffron);margin-bottom:10px;font-weight:700}
+  .section-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;background:linear-gradient(90deg,var(--gold-light),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px;line-height:1.3}
+  .section-divider{display:flex;align-items:center;gap:12px;margin-bottom:48px}
+  .section-divider::before{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent)}
+  .section-divider::after{content:'';flex:1;height:1px;background:linear-gradient(to left,var(--border),transparent)}
+  .divider-gem{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
 
-  /* VIDEO GRID */
-  .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-  .video-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+  /* ── VIDEO THUMBNAILS ── */
+  .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .video-thumb{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+    cursor:pointer;transition:transform .3s,box-shadow .3s;position:relative;
   }
-  .video-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(212,168,32,0.15); }
-  .video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-  .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-  .video-label {
-    padding: 12px 16px; font-size: 0.88rem; color: var(--text-dim);
-    border-top: 1px solid var(--border);
-    display: flex; align-items: center; gap: 8px;
+  .video-thumb:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(212,168,32,.2)}
+  .thumb-img-wrap{
+    position:relative;
+    /* Shorts 9:16 */
+    padding-bottom:177.78%;
+    background:#0d0d16;overflow:hidden;
   }
-  .video-label::before { content: '▶'; color: var(--saffron); font-size: 0.72rem; }
+  .thumb-img-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .video-thumb:hover .thumb-img-wrap img{transform:scale(1.05)}
+  .play-btn{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:56px;height:56px;border-radius:50%;
+    background:linear-gradient(135deg,var(--saffron),var(--gold));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 20px rgba(255,107,0,.5);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .video-thumb:hover .play-btn{transform:translate(-50%,-50%) scale(1.12);box-shadow:0 8px 30px rgba(255,107,0,.7)}
+  .play-btn svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+  .thumb-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);
+  }
+  .video-label{padding:12px 16px;font-size:.88rem;color:var(--text-dim);border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
+  .video-label::before{content:'▶';color:var(--saffron);font-size:.72rem}
 
-  /* ABOUT */
-  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .about-text p { font-size: 1.04rem; line-height: 1.85; color: var(--text-dim); margin-bottom: 16px; }
-  .about-text p strong { color: var(--gold-light); }
-  .about-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .stat-box {
-    background: var(--card2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 22px; text-align: center;
-    transition: border-color 0.3s;
-  }
-  .stat-box:hover { border-color: var(--gold); }
-  .stat-num {
-    font-family: 'Cinzel Decorative', serif; font-size: 1.7rem; font-weight: 700;
-    background: linear-gradient(90deg, var(--gold-light), var(--saffron-light));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .stat-label { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; letter-spacing: 1px; }
+  /* ── ABOUT ── */
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .about-text p{font-size:1.04rem;line-height:1.85;color:var(--text-dim);margin-bottom:16px}
+  .about-text p strong{color:var(--gold-light)}
+  .about-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stat-box{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:22px;text-align:center;transition:border-color .3s}
+  .stat-box:hover{border-color:var(--gold)}
+  .stat-num{font-family:'Cinzel Decorative',serif;font-size:1.7rem;font-weight:700;background:linear-gradient(90deg,var(--gold-light),var(--saffron-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .stat-label{font-size:.78rem;color:var(--text-dim);margin-top:4px;letter-spacing:1px}
 
-  /* CATEGORIES */
-  .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-  .cat-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; padding: 22px 18px;
-    display: flex; align-items: center; gap: 14px;
-    transition: all 0.3s; cursor: default; position: relative; overflow: hidden;
-  }
-  .cat-card::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px; background: linear-gradient(to bottom, var(--saffron), var(--gold));
-    transform: scaleY(0); transform-origin: top; transition: transform 0.3s;
-  }
-  .cat-card:hover { border-color: rgba(212,168,32,0.5); transform: translateX(4px); }
-  .cat-card:hover::before { transform: scaleY(1); }
-  .cat-icon {
-    width: 42px; height: 42px; border-radius: 8px;
-    background: rgba(212,168,32,0.1); display: flex; align-items: center;
-    justify-content: center; font-size: 1.25rem; flex-shrink: 0;
-  }
-  .cat-name { font-weight: 600; font-size: 0.93rem; color: var(--text); line-height: 1.35; }
+  /* ── CATEGORIES ── */
+  .categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+  .cat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 18px;display:flex;align-items:center;gap:14px;transition:all .3s;cursor:default;position:relative;overflow:hidden}
+  .cat-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--saffron),var(--gold));transform:scaleY(0);transform-origin:top;transition:transform .3s}
+  .cat-card:hover{border-color:rgba(212,168,32,.5);transform:translateX(4px)}
+  .cat-card:hover::before{transform:scaleY(1)}
+  .cat-icon{width:42px;height:42px;border-radius:8px;background:rgba(212,168,32,.1);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+  .cat-name{font-weight:600;font-size:.93rem;color:var(--text);line-height:1.35}
 
-  /* CONTACT */
-  .contact-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-  .contact-card {
-    background: var(--card2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 48px 40px;
-    position: relative; overflow: hidden;
-  }
-  .contact-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron));
-    background-size: 200%; animation: borderMove 3s linear infinite;
-  }
-  .contact-name {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.45rem; font-weight: 700; color: var(--gold-light); margin-bottom: 6px;
-  }
-  .contact-number { font-size: 2rem; font-weight: 700; color: var(--white); letter-spacing: 2px; margin-bottom: 36px; }
-  .contact-btns { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
-  .btn-call-big {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 16px 36px; border-radius: 6px;
-    background: var(--saffron); color: #fff;
-    font-family: 'Rajdhani', sans-serif; font-size: 1.05rem;
-    font-weight: 700; letter-spacing: 1.5px; text-decoration: none;
-    transition: all 0.3s; text-transform: uppercase;
-    box-shadow: 0 4px 20px rgba(255,107,0,0.35);
-  }
-  .btn-call-big:hover { background: #ff8c38; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,107,0,0.5); }
-  .btn-wa-big {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 16px 36px; border-radius: 6px;
-    background: #128C7E; color: #fff;
-    font-family: 'Rajdhani', sans-serif; font-size: 1.05rem;
-    font-weight: 700; letter-spacing: 1.5px; text-decoration: none;
-    transition: all 0.3s; text-transform: uppercase;
-    box-shadow: 0 4px 20px rgba(18,140,126,0.35);
-  }
-  .btn-wa-big:hover { background: #1aab9b; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(18,140,126,0.5); }
-  .btn-call-big svg, .btn-wa-big svg { width: 20px; height: 20px; }
+  /* ── CONTACT ── */
+  .contact-inner{max-width:700px;margin:0 auto;text-align:center}
+  .contact-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:48px 40px;position:relative;overflow:hidden}
+  .contact-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--saffron));background-size:200%;animation:borderMove 3s linear infinite}
+  .contact-name{font-family:'Cinzel Decorative',serif;font-size:1.45rem;font-weight:700;color:var(--gold-light);margin-bottom:6px}
+  .contact-number{font-size:2rem;font-weight:700;color:var(--white);letter-spacing:2px;margin-bottom:36px}
+  .contact-btns{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+  .btn-call-big{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border-radius:6px;background:var(--saffron);color:#fff;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:1.5px;text-decoration:none;transition:all .3s;text-transform:uppercase;box-shadow:0 4px 20px rgba(255,107,0,.35)}
+  .btn-call-big:hover{background:#ff8c38;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,0,.5)}
+  .btn-wa-big{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border-radius:6px;background:#128C7E;color:#fff;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:1.5px;text-decoration:none;transition:all .3s;text-transform:uppercase;box-shadow:0 4px 20px rgba(18,140,126,.35)}
+  .btn-wa-big:hover{background:#1aab9b;transform:translateY(-2px);box-shadow:0 8px 30px rgba(18,140,126,.5)}
+  .btn-call-big svg,.btn-wa-big svg{width:20px;height:20px}
 
-  /* FOOTER */
-  footer {
-    position: relative; z-index: 1;
-    background: rgba(0,0,0,0.5); border-top: 1px solid var(--border);
-    padding: 32px 5% 100px; text-align: center;
-  }
-  footer p { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 4px; }
-  footer strong { color: var(--gold); }
+  footer{position:relative;z-index:1;background:rgba(0,0,0,.5);border-top:1px solid var(--border);padding:32px 5% 100px;text-align:center}
+  footer p{color:var(--text-dim);font-size:.85rem;margin-bottom:4px}
+  footer strong{color:var(--gold)}
 
-  /* RESPONSIVE */
-  @media(max-width:768px) {
-    .about-inner { grid-template-columns: 1fr; gap: 40px; }
-    .nav-cta { display: none; }
-  }
-  @media(max-width:600px) {
-    .contact-card { padding: 36px 20px; }
-    .section-title { font-size: 1.25rem; }
-    .contact-number { font-size: 1.5rem; }
-  }
+  @media(max-width:768px){.about-inner{grid-template-columns:1fr;gap:40px}.nav-cta{display:none}}
+  @media(max-width:600px){.contact-card{padding:36px 20px}.contact-number{font-size:1.5rem}}
 </style>
 </head>
 <body>
+
+<!-- VIDEO MODAL -->
+<div class="vmodal-overlay" id="videoModal">
+  <div class="vmodal-box">
+    <div class="vmodal-top"></div>
+    <div class="vmodal-title" id="modalTitle">Campaign Video</div>
+    <button class="vmodal-close" id="modalClose">✕</button>
+    <div class="vmodal-frame-wrap">
+      <iframe id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="vmodal-footer">
+      <span class="vmodal-brand"><strong>DigiVardhan</strong> Marketing</span>
+      <a href="https://wa.me/919673967679?text=Mujhe%20campaign%20content%20chahiye." target="_blank" class="vmodal-wa">
+        💬 WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -351,61 +240,58 @@
   <div class="hero-bg"></div>
   <div class="hero-ring" style="width:600px;height:600px;"></div>
   <div class="hero-ring" style="width:1000px;height:1000px;"></div>
-
-  <div class="hero-badge">
-    <span class="dot"></span>
-    Political Digital Campaign Specialists
-  </div>
-
+  <div class="hero-badge"><span class="dot"></span>Political Digital Campaign Specialists</div>
   <h1>Political Digital<br/>Campaign Content</h1>
-
   <div class="hero-services">
-    <span>AI Campaign Videos</span>
-    <span>Cinematic Reels</span>
-    <span>Motion Graphics</span>
-    <span>Political Social Media Content</span>
+    <span>AI Campaign Videos</span><span>Cinematic Reels</span>
+    <span>Motion Graphics</span><span>Political Social Media Content</span>
   </div>
-
-  <p class="hero-tagline">
-    Modern digital campaign content designed for political leaders and candidates. Build a powerful digital presence and connect deeply with your voters.
-  </p>
-
+  <p class="hero-tagline">Modern digital campaign content designed for political leaders and candidates. Build a powerful digital presence and connect deeply with your voters.</p>
   <div class="hero-btns">
     <a href="#categories" class="btn-gold">👉 View Campaign Content</a>
     <a href="#contact" class="btn-outline">👉 Contact for Promotion</a>
   </div>
-
   <div class="scroll-hint">Scroll</div>
 </section>
 
-<!-- HERO VIDEOS -->
-<section style="padding-top: 40px; background: linear-gradient(to bottom, var(--deep), var(--dark));">
+<!-- SECTION 1: FEATURED VIDEOS -->
+<section style="padding-top:40px;background:linear-gradient(to bottom,var(--deep),var(--dark));">
   <div class="section-label" style="text-align:center">Featured Campaign Work</div>
   <div class="section-divider"><div class="divider-gem"></div></div>
   <div class="video-grid">
-    <div class="video-card">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="AI Campaign Video Sample 1"></iframe>
+
+    <div class="video-thumb" onclick="openVideo('exgd581PvE8','AI Campaign Video')">
+      <div class="thumb-img-wrap">
+        <img src="https://i.ytimg.com/vi/exgd581PvE8/hqdefault.jpg" alt="AI Campaign Video" loading="lazy"/>
+        <div class="thumb-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="video-label">AI Campaign Video – Sample 1</div>
+      <div class="video-label">AI Campaign Video</div>
     </div>
-    <div class="video-card">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Cinematic Campaign Reel Sample"></iframe>
+
+    <div class="video-thumb" onclick="openVideo('9VsAyg0QHDw','Cinematic Campaign Reel')">
+      <div class="thumb-img-wrap">
+        <img src="https://i.ytimg.com/vi/9VsAyg0QHDw/hqdefault.jpg" alt="Cinematic Reel" loading="lazy"/>
+        <div class="thumb-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="video-label">Cinematic Campaign Reel – Sample 2</div>
+      <div class="video-label">Cinematic Campaign Reel</div>
     </div>
-    <div class="video-card">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Motion Graphics Sample"></iframe>
+
+    <div class="video-thumb" onclick="openVideo('hRgjZCNHoi4','Motion Graphics Reel')">
+      <div class="thumb-img-wrap">
+        <img src="https://i.ytimg.com/vi/hRgjZCNHoi4/hqdefault.jpg" alt="Motion Graphics" loading="lazy"/>
+        <div class="thumb-overlay"></div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="video-label">Motion Graphics – Sample 3</div>
+      <div class="video-label">Motion Graphics Reel</div>
     </div>
+
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" style="background: var(--dark);">
+<section id="about" style="background:var(--dark);">
   <div class="section-label">About Us</div>
   <div class="section-title">DigiVardhan Marketing</div>
   <div class="section-divider"><div class="divider-gem"></div></div>
@@ -423,28 +309,39 @@
     </div>
   </div>
 
+  <!-- SECTION 2: ABOUT VIDEOS -->
   <div style="margin-top:64px">
     <div class="section-label">Our Work Samples</div>
     <div class="section-divider"><div class="divider-gem"></div></div>
     <div class="video-grid">
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://youtu.be/ALjk7orHEB4?si=EhJ2fu4K0kBzMIGJ" allowfullscreen loading="lazy" title="Political Poster Work"></iframe>
+
+      <div class="video-thumb" onclick="openVideo('A-qtZEfyA8o','Public Appeal Video')">
+        <div class="thumb-img-wrap">
+          <img src="https://i.ytimg.com/vi/A-qtZEfyA8o/hqdefault.jpg" alt="Public Appeal" loading="lazy"/>
+          <div class="thumb-overlay"></div>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
-        <div class="video-label">Political Poster Showcase</div>
+        <div class="video-label">Public Appeal Video</div>
       </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://youtube.com/shorts/FNlPQ90htss?si=4bnH6LPqAiL5mmmA" allowfullscreen loading="lazy" title="Voice Over Campaign"></iframe>
+
+      <div class="video-thumb" onclick="openVideo('FNlPQ90htss','Voice Over Campaign Video')">
+        <div class="thumb-img-wrap">
+          <img src="https://i.ytimg.com/vi/FNlPQ90htss/hqdefault.jpg" alt="Voice Over" loading="lazy"/>
+          <div class="thumb-overlay"></div>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
-        <div class="video-label">Voice Over Campaign – Sample</div>
+        <div class="video-label">Voice Over Campaign Video</div>
       </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://youtube.com/shorts/A-qtZEfyA8o?si=IsyXbU7JRJQtjpN1" allowfullscreen loading="lazy" title="Public Appeal Video"></iframe>
+
+      <div class="video-thumb" onclick="openVideo('exgd581PvE8','Campaign Highlight Reel')">
+        <div class="thumb-img-wrap">
+          <img src="https://i.ytimg.com/vi/exgd581PvE8/hqdefault.jpg" alt="Highlight Reel" loading="lazy"/>
+          <div class="thumb-overlay"></div>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
-        <div class="video-label">Public Appeal Video – Sample</div>
+        <div class="video-label">Campaign Highlight Reel</div>
       </div>
+
     </div>
   </div>
 </section>
@@ -454,7 +351,6 @@
   <div class="section-label">What We Offer</div>
   <div class="section-title">Campaign Content Categories</div>
   <div class="section-divider"><div class="divider-gem"></div></div>
-
   <div class="categories-grid">
     <div class="cat-card"><div class="cat-icon">🤖</div><div class="cat-name">AI Campaign Videos</div></div>
     <div class="cat-card"><div class="cat-icon">🎬</div><div class="cat-name">Cinematic Campaign Reels</div></div>
@@ -467,39 +363,49 @@
     <div class="cat-card"><div class="cat-icon">🏅</div><div class="cat-name">Candidate Logo Design</div></div>
   </div>
 
+  <!-- SECTION 3: CATEGORY VIDEOS -->
   <div style="margin-top:64px">
     <div class="section-label">Category Showcase</div>
     <div class="section-divider"><div class="divider-gem"></div></div>
     <div class="video-grid">
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://youtube.com/shorts/hRgjZCNHoi4?si=TFk6CBCG5w3h_gn6" allowfullscreen loading="lazy" title="Documentary Sample"></iframe>
+
+      <div class="video-thumb" onclick="openVideo('9VsAyg0QHDw','Cinematic Documentary')">
+        <div class="thumb-img-wrap">
+          <img src="https://i.ytimg.com/vi/9VsAyg0QHDw/hqdefault.jpg" alt="Documentary" loading="lazy"/>
+          <div class="thumb-overlay"></div>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
-        <div class="video-label">Documentary Sample</div>
+        <div class="video-label">Cinematic Documentary</div>
       </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://youtube.com/shorts/9VsAyg0QHDw?si=lvT1kHwnv9LfAqm9" allowfullscreen loading="lazy" title="AI Song Campaign"></iframe>
+
+      <div class="video-thumb" onclick="openVideo('hRgjZCNHoi4','AI-Generated Song Campaign')">
+        <div class="thumb-img-wrap">
+          <img src="https://i.ytimg.com/vi/hRgjZCNHoi4/hqdefault.jpg" alt="AI Song" loading="lazy"/>
+          <div class="thumb-overlay"></div>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="video-label">AI-Generated Song Campaign</div>
       </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://youtube.com/shorts/exgd581PvE8?si=zdQX3YVVBx2kJ1-e" allowfullscreen loading="lazy" title="Logo Reveal"></iframe>
+
+      <div class="video-thumb" onclick="openVideo('FNlPQ90htss','Candidate Promo Video')">
+        <div class="thumb-img-wrap">
+          <img src="https://i.ytimg.com/vi/FNlPQ90htss/hqdefault.jpg" alt="Candidate Promo" loading="lazy"/>
+          <div class="thumb-overlay"></div>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
-        <div class="video-label">Candidate Logo Reveal</div>
+        <div class="video-label">Candidate Promo Video</div>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" style="background: var(--dark);">
+<section id="contact" style="background:var(--dark);">
   <div class="contact-inner">
     <div class="section-label" style="text-align:center">Get In Touch</div>
     <div class="section-title" style="text-align:center">Campaign Content for<br/>Political Leaders</div>
     <div class="section-divider"><div class="divider-gem"></div></div>
-
     <div class="contact-card">
       <div class="contact-name">📞 Keshav Nachivnekar</div>
       <div class="contact-number">9673967679</div>
@@ -517,13 +423,12 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2024 <strong>DigiVardhan Marketing</strong> — All Rights Reserved</p>
   <p>Political Digital Campaign Content | Keshav Nachivnekar | 9673967679</p>
 </footer>
 
-<!-- FLOATING CTA BAR -->
+<!-- FLOATING CTA -->
 <div class="float-cta">
   <a href="tel:9673967679" class="btn-call">
     <svg fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
@@ -536,6 +441,32 @@
 </div>
 
 <script>
+  // ── MODAL PLAYER ──
+  function openVideo(id, title) {
+    document.getElementById('modalTitle').textContent = title;
+    // ?rel=0&modestbranding=1&controls=1 — no related videos, no YT logo, no channel info
+    document.getElementById('modalIframe').src =
+      'https://www.youtube.com/embed/' + id +
+      '?autoplay=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=0&fs=0';
+    document.getElementById('videoModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideo() {
+    document.getElementById('modalIframe').src = '';
+    document.getElementById('videoModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeVideo);
+  document.getElementById('videoModal').addEventListener('click', function(e) {
+    if (e.target === this) closeVideo();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeVideo();
+  });
+
+  // ── SCROLL REVEAL ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -545,7 +476,7 @@
     });
   }, { threshold: 0.08 });
 
-  document.querySelectorAll('.cat-card, .stat-box, .video-card, .about-text p').forEach((el, i) => {
+  document.querySelectorAll('.cat-card, .stat-box, .video-thumb, .about-text p').forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(18px)';
     el.style.transition = `opacity 0.55s ease ${i * 0.04}s, transform 0.55s ease ${i * 0.04}s`;

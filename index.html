@@ -1,653 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DigiVardhan Marketing – Political Digital Campaigns</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<title>DigiVardhan Marketing – Political Digital Campaign</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --gold:#D4AF37; --gold-light:#F5D97A; --gold-dark:#9A7A10;
-  --saffron:#FF6B1A; --deep:#0A0A0F; --dark:#0F0F1A;
-  --panel:#13131F; --card:#1A1A2E; --border:rgba(212,175,55,.25);
-  --text:#E8E8F0; --muted:#8888A8;
-  --green:#25D366; --call-blue:#2196F3;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--deep);color:var(--text);font-family:'Rajdhani',sans-serif;overflow-x:hidden;}
+  :root {
+    --gold: #D4A820;
+    --gold-light: #F5CC45;
+    --gold-dark: #9A7510;
+    --saffron: #FF6B00;
+    --saffron-light: #FF8C38;
+    --deep: #0A0A0F;
+    --dark: #10101A;
+    --card: #14141F;
+    --card2: #1A1A2A;
+    --border: rgba(212,168,32,0.25);
+    --text: #E8E0CC;
+    --text-dim: #998870;
+    --white: #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Rajdhani', 'Noto Sans Devanagari', sans-serif;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: 0.4;
+  }
 
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 40px;
-  background:rgba(10,10,15,.93);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-}
-.logo{font-family:'Cinzel',serif;font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--saffron));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.05em;}
-.nav-links{list-style:none;display:flex;gap:30px;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:color .25s;}
-.nav-links a:hover{color:var(--gold);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
-.hamburger span{display:block;width:24px;height:2px;background:var(--gold);border-radius:2px;transition:all .3s;}
-.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.hamburger.open span:nth-child(2){opacity:0;}
-.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.mobile-menu{
-  display:none;position:fixed;top:57px;left:0;right:0;z-index:199;
-  background:rgba(10,10,15,.97);border-bottom:1px solid var(--border);
-  max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;
-}
-.mobile-menu.open{max-height:350px;padding:8px 0 12px;}
-.mobile-menu a{display:block;padding:13px 28px;color:var(--muted);text-decoration:none;font-size:1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(212,175,55,.07);transition:color .2s,background .2s;}
-.mobile-menu a:hover{color:var(--gold);background:rgba(212,175,55,.05);}
-.mob-cta-row{display:flex;gap:10px;padding:14px 28px 4px;}
-.mob-call-btn,.mob-wa-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 10px;border-radius:6px;font-weight:700;font-size:.87rem;letter-spacing:.06em;text-decoration:none;text-transform:uppercase;transition:opacity .2s;}
-.mob-call-btn{background:var(--call-blue);color:#fff;}
-.mob-wa-btn{background:var(--green);color:#fff;}
-.mob-call-btn:hover,.mob-wa-btn:hover{opacity:.85;}
+  /* FLOAT CTA */
+  .float-cta {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+    display: flex;
+    box-shadow: 0 -4px 30px rgba(0,0,0,0.6);
+  }
+  .float-cta a {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px; font-family: 'Rajdhani', sans-serif;
+    font-size: 1.05rem; font-weight: 700; letter-spacing: 1px;
+    text-decoration: none; transition: filter 0.2s;
+  }
+  .float-cta a:hover { filter: brightness(1.15); }
+  .float-cta .btn-call { background: var(--saffron); color: #fff; }
+  .float-cta .btn-wa   { background: #128C7E; color: #fff; }
+  .float-cta a svg { width: 20px; height: 20px; flex-shrink: 0; }
 
-/* FLOATING BUTTONS */
-.float-btns{position:fixed;right:18px;bottom:26px;z-index:300;display:flex;flex-direction:column;gap:11px;align-items:flex-end;}
-.float-btn{
-  position:relative;display:flex;align-items:center;
-  height:52px;border-radius:52px;
-  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.93rem;
-  letter-spacing:.06em;text-decoration:none;color:#fff;
-  box-shadow:0 4px 18px rgba(0,0,0,.45);
-  transition:transform .22s,box-shadow .22s;
-  white-space:nowrap;overflow:hidden;cursor:pointer;border:none;
-}
-.float-btn .fb-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
-.float-btn .fb-label{padding:0 18px 0 4px;}
-.float-wa{background:var(--green);}
-.float-wa .fb-icon{background:rgba(0,0,0,.15);}
-.float-call{background:var(--call-blue);}
-.float-call .fb-icon{background:rgba(0,0,0,.15);}
-.float-btn:hover{transform:translateX(-4px) scale(1.04);box-shadow:0 8px 26px rgba(0,0,0,.55);}
-.float-wa::before{content:'';position:absolute;width:52px;height:52px;border-radius:50%;right:0;border:2px solid var(--green);animation:fPulse 2.2s ease-out infinite;pointer-events:none;}
-@keyframes fPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 900;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 5%;
+  }
+  .logo-wrap { display: flex; align-items: center; gap: 14px; }
+  .logo-badge {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 22px rgba(212,168,32,0.45);
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.2rem; font-weight: 900; color: var(--deep);
+    flex-shrink: 0; position: relative; overflow: hidden;
+  }
+  .logo-badge::after {
+    content: ''; position: absolute; inset: 3px; border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .logo-text-wrap { display: flex; flex-direction: column; }
+  .logo-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem; font-weight: 700;
+    background: linear-gradient(90deg, var(--gold-light), var(--saffron-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+  }
+  .logo-sub { font-size: 0.68rem; color: var(--text-dim); letter-spacing: 2.5px; text-transform: uppercase; }
+  .nav-cta { display: flex; gap: 10px; }
+  .nav-cta a {
+    padding: 9px 20px; border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    font-size: 0.9rem; letter-spacing: 1px; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .nc-view { border: 1.5px solid var(--gold); color: var(--gold); background: transparent; }
+  .nc-view:hover { background: var(--gold); color: var(--deep); }
+  .nc-contact { background: linear-gradient(90deg, var(--saffron), var(--gold)); color: var(--deep); }
+  .nc-contact:hover { filter: brightness(1.1); }
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 22px 80px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.06) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 20s linear infinite;pointer-events:none;}
-@keyframes gridDrift{from{transform:translateY(0)}to{transform:translateY(60px)}}
-.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(212,175,55,.12) 0%,transparent 70%);pointer-events:none;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);padding:8px 20px;border-radius:40px;font-size:.77rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;background:rgba(212,175,55,.06);position:relative;z-index:1;}
-.hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--saffron);animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
-.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.1rem,7vw,5.5rem);font-weight:900;line-height:1.06;position:relative;z-index:1;margin-bottom:14px;}
-.hero h1 .line1{display:block;background:linear-gradient(135deg,#fff 30%,var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero h1 .line2{display:block;background:linear-gradient(135deg,var(--gold),var(--saffron));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-sub{font-size:.93rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;position:relative;z-index:1;line-height:1.9;}
-.hero-sub strong{color:var(--gold);}
-.hero-tagline{font-size:1.05rem;color:#C0C0D8;max-width:510px;line-height:1.65;margin-bottom:32px;position:relative;z-index:1;}
-.hero-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;position:relative;z-index:1;}
-.hero-contact-strip{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;margin-top:22px;position:relative;z-index:1;}
-.hcs-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.07em;text-decoration:none;text-transform:uppercase;transition:transform .2s,box-shadow .2s;}
-.hcs-call{background:var(--call-blue);color:#fff;box-shadow:0 4px 16px rgba(33,150,243,.35);}
-.hcs-wa{background:var(--green);color:#fff;box-shadow:0 4px 16px rgba(37,211,102,.35);}
-.hcs-btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
-.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;z-index:1;}
-.scroll-hint div{width:1.5px;height:34px;background:linear-gradient(var(--gold),transparent);animation:scrollLine 1.8s ease-in-out infinite;}
-@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  /* HERO */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center;
+    padding: 120px 5% 100px; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,0,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(212,168,32,0.1) 0%, transparent 60%),
+      var(--deep);
+  }
+  .hero-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(212,168,32,0.08); z-index: 0;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .hero-badge {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(212,168,32,0.1); border: 1px solid rgba(212,168,32,0.35);
+    border-radius: 100px; padding: 7px 18px;
+    font-size: 0.8rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold-light); margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .dot { width: 6px; height: 6px; background: var(--saffron); border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+  @keyframes scrollLine { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform:scaleY(1);transform-origin:bottom} }
+  @keyframes borderMove { 0%{background-position:0%} 100%{background-position:200%} }
 
-/* BUTTONS */
-.btn-gold{display:inline-flex;align-items:center;gap:9px;padding:13px 28px;border-radius:4px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.93rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 22px rgba(212,175,55,.35);}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,175,55,.5);}
-.btn-outline{display:inline-flex;align-items:center;gap:9px;padding:12px 28px;border-radius:4px;background:transparent;border:1.5px solid var(--gold);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.93rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .2s,color .2s,transform .2s;}
-.btn-outline:hover{background:rgba(212,175,55,.1);transform:translateY(-2px);}
+  .hero h1 {
+    position: relative; z-index: 1;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 5vw, 3.8rem);
+    font-weight: 900; line-height: 1.18;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--saffron-light) 50%, var(--gold-light) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: fadeUp 0.8s 0.15s ease both, shimmer 4s infinite linear;
+    margin-bottom: 20px;
+  }
+  .hero-services {
+    position: relative; z-index: 1;
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; margin-bottom: 24px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-services span {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(212,168,32,0.2);
+    border-radius: 4px; padding: 5px 14px;
+    font-size: 0.85rem; color: var(--text-dim);
+  }
+  .hero-tagline {
+    position: relative; z-index: 1;
+    font-size: 1.08rem; color: var(--text-dim);
+    max-width: 560px; line-height: 1.75; margin-bottom: 40px;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .hero-btns {
+    position: relative; z-index: 1;
+    display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .btn-gold {
+    padding: 14px 32px; border-radius: 5px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+    background-size: 200%; color: var(--deep);
+    font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700;
+    letter-spacing: 1.5px; text-decoration: none; border: none; cursor: pointer;
+    transition: background-position 0.4s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(212,168,32,0.3); text-transform: uppercase;
+  }
+  .btn-gold:hover { background-position: right; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,168,32,0.5); }
+  .btn-outline {
+    padding: 14px 32px; border-radius: 5px;
+    border: 2px solid var(--saffron); color: var(--saffron); background: transparent;
+    font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700;
+    letter-spacing: 1.5px; text-decoration: none; cursor: pointer;
+    transition: all 0.3s; text-transform: uppercase;
+  }
+  .btn-outline:hover { background: var(--saffron); color: #fff; transform: translateY(-2px); }
+  .scroll-hint {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--text-dim); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    animation: fadeIn 1s 1.2s both;
+  }
+  .scroll-hint::after {
+    content: ''; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollLine 2s infinite;
+  }
 
-/* SECTIONS */
-section{padding:76px 40px;}
-.gold-divider{height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),var(--saffron),transparent);margin:0 40px;}
-.section-label{display:inline-block;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;position:relative;padding-left:20px;}
-.section-label::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:12px;height:1.5px;background:var(--saffron);}
-.section-title{font-family:'Cinzel',serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;color:#fff;margin-bottom:14px;}
-.section-desc{color:var(--muted);font-size:1rem;max-width:560px;line-height:1.7;}
+  /* SECTION */
+  section { position: relative; z-index: 1; padding: 90px 5%; }
+  .section-label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--saffron); margin-bottom: 10px; font-weight: 700; }
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700;
+    background: linear-gradient(90deg, var(--gold-light), var(--white));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 16px; line-height: 1.3;
+  }
+  .section-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+  .section-divider::before { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+  .section-divider::after  { content: ''; flex: 1; height: 1px; background: linear-gradient(to left, var(--border), transparent); }
+  .divider-gem { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 
-/* ABOUT */
-#about{background:var(--panel);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center;max-width:1100px;margin:0 auto;}
-.about-visual{position:relative;aspect-ratio:1/1.1;max-width:420px;width:100%;}
-.about-box{width:100%;height:100%;border:1.5px solid var(--border);border-radius:8px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:5rem;}
-.about-deco{position:absolute;top:-16px;right:-16px;width:68px;height:68px;border:1.5px solid var(--saffron);border-radius:4px;opacity:.4;}
-.about-deco2{position:absolute;bottom:-16px;left:-16px;width:42px;height:42px;border:1.5px solid var(--gold);border-radius:50%;opacity:.3;}
-.about-stats{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap;}
-.stat{text-align:center;}
-.stat-num{font-family:'Cinzel',serif;font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--saffron));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;}
-.stat-lbl{font-size:.73rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-.services-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px;}
-.tag{padding:6px 15px;border-radius:3px;border:1px solid var(--border);font-size:.82rem;letter-spacing:.07em;color:var(--muted);transition:border-color .2s,color .2s;}
-.tag:hover{border-color:var(--gold);color:var(--gold);}
+  /* VIDEO GRID */
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .video-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .video-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(212,168,32,0.15); }
+  .video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+  .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .video-label {
+    padding: 12px 16px; font-size: 0.88rem; color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .video-label::before { content: '▶'; color: var(--saffron); font-size: 0.72rem; }
 
-/* =============================================
-   VIDEO SECTION — GOOGLE DRIVE PLAYER
-   ============================================= */
-#videos{background:var(--dark);}
-.video-section-header{text-align:center;margin-bottom:46px;}
-.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+  /* ABOUT */
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .about-text p { font-size: 1.04rem; line-height: 1.85; color: var(--text-dim); margin-bottom: 16px; }
+  .about-text p strong { color: var(--gold-light); }
+  .about-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat-box {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 22px; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .stat-box:hover { border-color: var(--gold); }
+  .stat-num {
+    font-family: 'Cinzel Decorative', serif; font-size: 1.7rem; font-weight: 700;
+    background: linear-gradient(90deg, var(--gold-light), var(--saffron-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; letter-spacing: 1px; }
 
-/* Thumbnail card (shown before click) */
-.video-card{
-  background:var(--card);border:1px solid var(--border);border-radius:8px;
-  overflow:hidden;cursor:pointer;
-  transition:transform .3s,border-color .3s,box-shadow .3s;
-}
-.video-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 10px 34px rgba(212,175,55,.2);}
-.video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0a0a14;}
-.thumb-img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
-.video-card:hover .thumb-img{transform:scale(1.06);}
+  /* CATEGORIES */
+  .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .cat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 22px 18px;
+    display: flex; align-items: center; gap: 14px;
+    transition: all 0.3s; cursor: default; position: relative; overflow: hidden;
+  }
+  .cat-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: linear-gradient(to bottom, var(--saffron), var(--gold));
+    transform: scaleY(0); transform-origin: top; transition: transform 0.3s;
+  }
+  .cat-card:hover { border-color: rgba(212,168,32,0.5); transform: translateX(4px); }
+  .cat-card:hover::before { transform: scaleY(1); }
+  .cat-icon {
+    width: 42px; height: 42px; border-radius: 8px;
+    background: rgba(212,168,32,0.1); display: flex; align-items: center;
+    justify-content: center; font-size: 1.25rem; flex-shrink: 0;
+  }
+  .cat-name { font-weight: 600; font-size: 0.93rem; color: var(--text); line-height: 1.35; }
 
-/* Emoji placeholder thumbnail when no real thumb */
-.thumb-placeholder{
-  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-  font-size:3.5rem;background:linear-gradient(135deg,#13131F,#1A1A2E);
-}
+  /* CONTACT */
+  .contact-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+  .contact-card {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 48px 40px;
+    position: relative; overflow: hidden;
+  }
+  .contact-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron));
+    background-size: 200%; animation: borderMove 3s linear infinite;
+  }
+  .contact-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.45rem; font-weight: 700; color: var(--gold-light); margin-bottom: 6px;
+  }
+  .contact-number { font-size: 2rem; font-weight: 700; color: var(--white); letter-spacing: 2px; margin-bottom: 36px; }
+  .contact-btns { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+  .btn-call-big {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 36px; border-radius: 6px;
+    background: var(--saffron); color: #fff;
+    font-family: 'Rajdhani', sans-serif; font-size: 1.05rem;
+    font-weight: 700; letter-spacing: 1.5px; text-decoration: none;
+    transition: all 0.3s; text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(255,107,0,0.35);
+  }
+  .btn-call-big:hover { background: #ff8c38; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,107,0,0.5); }
+  .btn-wa-big {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 36px; border-radius: 6px;
+    background: #128C7E; color: #fff;
+    font-family: 'Rajdhani', sans-serif; font-size: 1.05rem;
+    font-weight: 700; letter-spacing: 1.5px; text-decoration: none;
+    transition: all 0.3s; text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(18,140,126,0.35);
+  }
+  .btn-wa-big:hover { background: #1aab9b; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(18,140,126,0.5); }
+  .btn-call-big svg, .btn-wa-big svg { width: 20px; height: 20px; }
 
-.play-btn{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.34);transition:background .3s;
-}
-.play-btn svg{width:54px;height:54px;filter:drop-shadow(0 0 14px rgba(212,175,55,.7));transition:transform .3s;}
-.video-card:hover .play-btn svg{transform:scale(1.14);}
-.video-card:hover .play-btn{background:rgba(0,0,0,.12);}
-.video-info{padding:13px 15px;}
-.video-info h4{font-family:'Cinzel',serif;font-size:.92rem;color:#fff;margin-bottom:4px;}
-.video-info p{font-size:.8rem;color:var(--muted);}
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    background: rgba(0,0,0,0.5); border-top: 1px solid var(--border);
+    padding: 32px 5% 100px; text-align: center;
+  }
+  footer p { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 4px; }
+  footer strong { color: var(--gold); }
 
-/* ── Google Drive inline player (hidden by default) ── */
-.gdrive-player{
-  display:none;
-  flex-direction:column;
-  background:var(--card);
-  border:1px solid var(--gold);
-  border-radius:8px;
-  overflow:hidden;
-  box-shadow:0 8px 36px rgba(212,175,55,.22);
-  animation:playerFadeIn .35s ease;
-}
-.gdrive-player.active{display:flex;}
-@keyframes playerFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-.gdrive-player-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 14px;background:rgba(212,175,55,.06);
-  border-bottom:1px solid var(--border);
-}
-.gdrive-player-title{font-family:'Cinzel',serif;font-size:.88rem;color:var(--gold-light);}
-.gdrive-player-close{
-  background:none;border:1.5px solid var(--border);color:var(--gold);
-  width:32px;height:32px;border-radius:50%;font-size:.85rem;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background .2s,border-color .2s;flex-shrink:0;
-}
-.gdrive-player-close:hover{background:rgba(212,175,55,.15);border-color:var(--gold);}
-
-.gdrive-frame-wrap{position:relative;aspect-ratio:16/9;background:#000;}
-.gdrive-frame-wrap iframe{width:100%;height:100%;border:none;display:block;}
-
-/* Loading spinner inside player */
-.gdrive-loading{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px;
-  background:#000;color:var(--muted);font-size:.8rem;letter-spacing:.1em;
-  text-transform:uppercase;pointer-events:none;
-  transition:opacity .4s;
-}
-.gdrive-loading.hidden{opacity:0;}
-.spinner{width:36px;height:36px;border:3px solid rgba(212,175,55,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* Open-in-Drive link */
-.gdrive-player-footer{
-  padding:8px 14px;display:flex;align-items:center;justify-content:flex-end;gap:10px;
-  border-top:1px solid var(--border);background:rgba(0,0,0,.2);
-}
-.gdrive-open-link{
-  display:inline-flex;align-items:center;gap:6px;
-  color:var(--muted);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
-  text-decoration:none;transition:color .2s;
-}
-.gdrive-open-link:hover{color:var(--gold);}
-.gdrive-open-link svg{width:13px;height:13px;fill:currentColor;flex-shrink:0;}
-
-/* Wrapper holds BOTH thumb-card and player stacked */
-.video-slot{display:flex;flex-direction:column;gap:0;}
-
-/* When player is active, hide thumb */
-.video-slot.playing .video-card{display:none;}
-.video-slot.playing .gdrive-player{display:flex;}
-
-/* LIGHTBOX (kept as fallback, not used for GDrive) */
-.lightbox{display:none;}
-
-/* VOICE SLIDER */
-#voice{background:var(--panel);}
-.voice-header{text-align:center;margin-bottom:42px;}
-.voice-slider-wrap{max-width:840px;margin:0 auto;position:relative;overflow:hidden;border-radius:10px;border:1px solid var(--border);}
-.voice-slider{display:flex;transition:transform .5s cubic-bezier(.77,0,.175,1);}
-.voice-slide{min-width:100%;padding:38px 42px;background:var(--card);display:flex;flex-direction:column;gap:16px;}
-.voice-slide h3{font-family:'Cinzel',serif;font-size:1.15rem;color:var(--gold-light);}
-.voice-slide p{color:var(--muted);line-height:1.75;font-size:.96rem;}
-.slide-label{display:inline-block;padding:4px 13px;border-radius:2px;background:rgba(212,175,55,.1);border:1px solid var(--border);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);align-self:flex-start;}
-.audio-player{display:flex;align-items:center;gap:13px;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:6px;padding:11px 16px;}
-.ap-play{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s,box-shadow .2s;}
-.ap-play:hover{transform:scale(1.1);box-shadow:0 0 14px rgba(212,175,55,.5);}
-.ap-play svg{width:14px;height:14px;fill:#000;}
-.ap-bar-wrap{flex:1;display:flex;flex-direction:column;gap:5px;}
-.ap-progress-track{height:4px;background:rgba(255,255,255,.1);border-radius:4px;cursor:pointer;}
-.ap-progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--saffron));width:0%;}
-.ap-time{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);}
-.slider-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px;}
-.sl-arrow{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);background:transparent;color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background .2s,border-color .2s;}
-.sl-arrow:hover{background:rgba(212,175,55,.1);border-color:var(--gold);}
-.sl-dots{display:flex;gap:8px;}
-.sl-dot{width:8px;height:8px;border-radius:50%;background:rgba(212,175,55,.25);cursor:pointer;transition:background .2s,transform .2s;}
-.sl-dot.active{background:var(--gold);transform:scale(1.3);}
-
-/* CONTACT */
-#contact{background:var(--dark);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;max-width:1000px;margin:0 auto;align-items:start;}
-.contact-form{display:flex;flex-direction:column;gap:13px;}
-.form-group{display:flex;flex-direction:column;gap:5px;}
-.form-group label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
-.form-group input,.form-group textarea,.form-group select{background:var(--card);border:1.5px solid var(--border);color:var(--text);padding:11px 14px;border-radius:4px;font-family:'Rajdhani',sans-serif;font-size:.96rem;outline:none;transition:border-color .25s;-webkit-appearance:none;}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);}
-.form-group textarea{resize:vertical;min-height:108px;}
-.form-group select option{background:var(--card);}
-.contact-info{display:flex;flex-direction:column;gap:22px;}
-.ci-item{display:flex;align-items:flex-start;gap:13px;}
-.ci-icon{width:42px;height:42px;border-radius:6px;border:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--card);}
-.ci-item h5{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
-.ci-item p{color:var(--text);font-size:.96rem;}
-.contact-cta-btns{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px;}
-.cta-call,.cta-wa{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:50px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.07em;text-decoration:none;text-transform:uppercase;transition:transform .2s,box-shadow .2s;}
-.cta-call{background:var(--call-blue);color:#fff;box-shadow:0 4px 14px rgba(33,150,243,.3);}
-.cta-wa{background:var(--green);color:#fff;box-shadow:0 4px 14px rgba(37,211,102,.3);}
-.cta-call:hover,.cta-wa:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.35);}
-.cta-call svg,.cta-wa svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;}
-
-/* FOOTER */
-footer{background:var(--deep);border-top:1px solid var(--border);padding:30px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
-.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--saffron));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-footer p{color:var(--muted);font-size:.8rem;}
-.social-links{display:flex;gap:9px;}
-.social-link{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;text-decoration:none;transition:border-color .2s,color .2s;}
-.social-link:hover{border-color:var(--gold);color:var(--gold);}
-
-/* FADE-UP */
-.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
-.fade-up.visible{opacity:1;transform:translateY(0);}
-
-/* RESPONSIVE */
-@media(max-width:960px){
-  .about-grid,.contact-grid{grid-template-columns:1fr;gap:36px;}
-  .about-visual{max-width:320px;margin:0 auto;}
-  .video-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:768px){
-  nav{padding:12px 18px;}
-  .nav-links{display:none;}
-  .hamburger{display:flex;}
-  section{padding:56px 18px;}
-  .gold-divider{margin:0 18px;}
-  .hero{padding:88px 16px 68px;}
-  .hero-sub{font-size:.8rem;letter-spacing:.06em;}
-  .hero-tagline{font-size:.97rem;}
-  .hero-btns,.hero-contact-strip{flex-direction:column;align-items:center;width:100%;max-width:310px;}
-  .btn-gold,.btn-outline,.hcs-btn{width:100%;justify-content:center;}
-  .video-grid{grid-template-columns:1fr;}
-  .voice-slide{padding:26px 20px;}
-  footer{flex-direction:column;align-items:center;text-align:center;padding:26px 18px;}
-  .contact-cta-btns{flex-direction:column;}
-  .cta-call,.cta-wa{justify-content:center;}
-  .float-btns{right:13px;bottom:20px;gap:10px;}
-  .float-btn .fb-label{display:none;}
-  .float-btn{padding:0;width:52px;border-radius:50%;}
-}
-@media(max-width:400px){
-  .about-stats{gap:14px;}
-  .stat-num{font-size:1.6rem;}
-  .video-info h4{font-size:.86rem;}
-}
+  /* RESPONSIVE */
+  @media(max-width:768px) {
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .nav-cta { display: none; }
+  }
+  @media(max-width:600px) {
+    .contact-card { padding: 36px 20px; }
+    .section-title { font-size: 1.25rem; }
+    .contact-number { font-size: 1.5rem; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="logo">DigiVardhan</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#videos">Portfolio</a></li>
-    <li><a href="#voice">Voice</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about"   onclick="closeMob()">About</a>
-  <a href="#videos"  onclick="closeMob()">Portfolio</a>
-  <a href="#voice"   onclick="closeMob()">Voice</a>
-  <a href="#contact" onclick="closeMob()">Contact</a>
-  <div class="mob-cta-row">
-    <a href="tel:+919876543210" class="mob-call-btn">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-      Call Now
-    </a>
-    <a href="https://wa.me/919876543210" target="_blank" class="mob-wa-btn">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp
-    </a>
+  <div class="logo-wrap">
+    <div class="logo-badge">DV</div>
+    <div class="logo-text-wrap">
+      <span class="logo-name">DigiVardhan</span>
+      <span class="logo-sub">Marketing Agency</span>
+    </div>
   </div>
-</div>
-
-<!-- FLOATING BUTTONS -->
-<div class="float-btns">
-  <a href="https://wa.me/919876543210?text=Hi%20DigiVardhan%2C%20I%20am%20interested%20in%20campaign%20promotion." target="_blank" class="float-btn float-wa" title="WhatsApp">
-    <span class="fb-icon">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </span>
-    <span class="fb-label">WhatsApp</span>
-  </a>
-  <a href="tel:+919876543210" class="float-btn float-call" title="Call Us">
-    <span class="fb-icon">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-    </span>
-    <span class="fb-label">Call Now</span>
-  </a>
-</div>
+  <div class="nav-cta">
+    <a href="#categories" class="nc-view">View Content</a>
+    <a href="#contact" class="nc-contact">Contact Us</a>
+  </div>
+</nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-badge"><span></span> Political Digital Campaign</div>
-  <h1>
-    <span class="line1">Political Digital</span>
-    <span class="line2">Campaign Content</span>
-  </h1>
-  <div class="hero-sub">
-    <strong>AI Campaign Videos</strong> &nbsp;|&nbsp; Cinematic Reels<br/>
-    <strong>Motion Graphics</strong> &nbsp;|&nbsp; Political Social Media
+  <div class="hero-bg"></div>
+  <div class="hero-ring" style="width:600px;height:600px;"></div>
+  <div class="hero-ring" style="width:1000px;height:1000px;"></div>
+
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Political Digital Campaign Specialists
   </div>
-  <p class="hero-tagline">Modern digital campaign content designed for political leaders and candidates who want to connect with voters powerfully.</p>
+
+  <h1>Political Digital<br/>Campaign Content</h1>
+
+  <div class="hero-services">
+    <span>AI Campaign Videos</span>
+    <span>Cinematic Reels</span>
+    <span>Motion Graphics</span>
+    <span>Political Social Media Content</span>
+  </div>
+
+  <p class="hero-tagline">
+    Modern digital campaign content designed for political leaders and candidates. Build a powerful digital presence and connect deeply with your voters.
+  </p>
+
   <div class="hero-btns">
-    <a href="#videos"  class="btn-gold">🎬 View Campaign Content</a>
-    <a href="#contact" class="btn-outline">📲 Contact for Promotion</a>
+    <a href="#categories" class="btn-gold">👉 View Campaign Content</a>
+    <a href="#contact" class="btn-outline">👉 Contact for Promotion</a>
   </div>
-  <div class="hero-contact-strip">
-    <a href="tel:+919876543210" class="hcs-btn hcs-call">
-      <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-      📞 Call: +91 98765 43210
-    </a>
-    <a href="https://wa.me/919876543210?text=Hi%20DigiVardhan%2C%20I%20am%20interested%20in%20campaign%20promotion." target="_blank" class="hcs-btn hcs-wa">
-      <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      💬 WhatsApp Us
-    </a>
-  </div>
-  <div class="scroll-hint">Scroll<div></div></div>
+
+  <div class="scroll-hint">Scroll</div>
 </section>
 
-<div class="gold-divider"></div>
+<!-- HERO VIDEOS -->
+<section style="padding-top: 40px; background: linear-gradient(to bottom, var(--deep), var(--dark));">
+  <div class="section-label" style="text-align:center">Featured Campaign Work</div>
+  <div class="section-divider"><div class="divider-gem"></div></div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="AI Campaign Video Sample 1"></iframe>
+      </div>
+      <div class="video-label">AI Campaign Video – Sample 1</div>
+    </div>
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Cinematic Campaign Reel Sample"></iframe>
+      </div>
+      <div class="video-label">Cinematic Campaign Reel – Sample 2</div>
+    </div>
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Motion Graphics Sample"></iframe>
+      </div>
+      <div class="video-label">Motion Graphics – Sample 3</div>
+    </div>
+  </div>
+</section>
 
 <!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-visual fade-up">
-      <div class="about-box">🏛️</div>
-      <div class="about-deco"></div><div class="about-deco2"></div>
+<section id="about" style="background: var(--dark);">
+  <div class="section-label">About Us</div>
+  <div class="section-title">DigiVardhan Marketing</div>
+  <div class="section-divider"><div class="divider-gem"></div></div>
+  <div class="about-inner">
+    <div class="about-text">
+      <p><strong>DigiVardhan Marketing</strong> creates modern digital campaign content for political leaders and candidates across Maharashtra and India.</p>
+      <p>Our focus is on powerful social media content that helps leaders <strong>connect with voters</strong> and build a strong, lasting digital presence.</p>
+      <p>From AI-generated campaign videos to cinematic reels and motion graphics — we craft every piece of content with political intent and visual impact.</p>
     </div>
-    <div class="fade-up" style="transition-delay:.12s">
-      <div class="section-label">About Us</div>
-      <h2 class="section-title">DigiVardhan<br>Marketing</h2>
-      <p class="section-desc">DigiVardhan Marketing creates modern digital campaign content for political leaders and candidates. Our focus is on powerful social media content that helps leaders connect with voters and build a strong digital presence.</p>
-      <div class="about-stats">
-        <div class="stat"><span class="stat-num">500+</span><span class="stat-lbl">Campaigns</span></div>
-        <div class="stat"><span class="stat-num">50+</span><span class="stat-lbl">Leaders</span></div>
-        <div class="stat"><span class="stat-num">10M+</span><span class="stat-lbl">Reach</span></div>
+    <div class="about-stat-grid">
+      <div class="stat-box"><div class="stat-num">500+</div><div class="stat-label">Campaigns Delivered</div></div>
+      <div class="stat-box"><div class="stat-num">9+</div><div class="stat-label">Content Categories</div></div>
+      <div class="stat-box"><div class="stat-num">100%</div><div class="stat-label">Digital Focus</div></div>
+      <div class="stat-box"><div class="stat-num">24/7</div><div class="stat-label">Campaign Support</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:64px">
+    <div class="section-label">Our Work Samples</div>
+    <div class="section-divider"><div class="divider-gem"></div></div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Political Poster Work"></iframe>
+        </div>
+        <div class="video-label">Political Poster Showcase</div>
       </div>
-      <div class="services-tags">
-        <div class="tag">AI Campaign Videos</div>
-        <div class="tag">Cinematic Reels</div>
-        <div class="tag">Motion Graphics</div>
-        <div class="tag">Social Media Content</div>
-        <div class="tag">Voter Outreach</div>
-        <div class="tag">Brand Strategy</div>
+      <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Voice Over Campaign"></iframe>
+        </div>
+        <div class="video-label">Voice Over Campaign – Sample</div>
+      </div>
+      <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Public Appeal Video"></iframe>
+        </div>
+        <div class="video-label">Public Appeal Video – Sample</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="gold-divider"></div>
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-label">What We Offer</div>
+  <div class="section-title">Campaign Content Categories</div>
+  <div class="section-divider"><div class="divider-gem"></div></div>
 
-<!-- ══════════════════════════════════════════════
-     VIDEOS — GOOGLE DRIVE INLINE PLAYER
-     ══════════════════════════════════════════════
-     HOW TO UPDATE YOUR DRIVE LINKS:
-     1. Upload video to Google Drive
-     2. Right-click → Share → "Anyone with the link"
-     3. Copy the File ID from the share URL:
-        https://drive.google.com/file/d/FILE_ID/view
-     4. Replace the data-gdrive-id value below with your FILE_ID
-     5. For thumbnails: replace data-thumb with any image URL
-        (or leave blank for the emoji placeholder)
-     ══════════════════════════════════════════════ -->
-<section id="videos">
-  <div class="video-section-header fade-up">
-    <div class="section-label">Portfolio</div>
-    <h2 class="section-title">Campaign Content Showcase</h2>
-    <p class="section-desc" style="margin:0 auto">Click any thumbnail to play directly from Google Drive — no popups, no redirects.</p>
+  <div class="categories-grid">
+    <div class="cat-card"><div class="cat-icon">🤖</div><div class="cat-name">AI Campaign Videos</div></div>
+    <div class="cat-card"><div class="cat-icon">🎬</div><div class="cat-name">Cinematic Campaign Reels</div></div>
+    <div class="cat-card"><div class="cat-icon">✨</div><div class="cat-name">Motion Graphics Reels</div></div>
+    <div class="cat-card"><div class="cat-icon">🖼️</div><div class="cat-name">Political Posters & Graphics</div></div>
+    <div class="cat-card"><div class="cat-icon">🎙️</div><div class="cat-name">Voice Over Campaign Videos</div></div>
+    <div class="cat-card"><div class="cat-icon">📢</div><div class="cat-name">Public Appeal Videos</div></div>
+    <div class="cat-card"><div class="cat-icon">🎥</div><div class="cat-name">Documentary</div></div>
+    <div class="cat-card"><div class="cat-icon">🔊</div><div class="cat-name">Audio on Rickshaw & AI Songs</div></div>
+    <div class="cat-card"><div class="cat-icon">🏅</div><div class="cat-name">Candidate Logo Design</div></div>
   </div>
 
-  <div class="video-grid" id="videoGrid">
-
-    <!-- CARD 1 -->
-    <div class="video-slot fade-up">
-      <div class="video-card"
-           data-gdrive-id="https://drive.google.com/file/d/1vsdnGD1s8JVHt3I8EOkDJrEZ_ybd1sUI/view?usp=sharing"
-           data-title="Political Rally Highlight"
-           data-thumb=""
-           data-emoji="🎤">
-        <div class="video-thumb">
-          <div class="thumb-placeholder">🎤</div>
-          <div class="play-btn">
-            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
-          </div>
+  <div style="margin-top:64px">
+    <div class="section-label">Category Showcase</div>
+    <div class="section-divider"><div class="divider-gem"></div></div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Documentary Sample"></iframe>
         </div>
-        <div class="video-info"><h4>Political Rally Highlight</h4><p>Cinematic reel for voter outreach</p></div>
+        <div class="video-label">Documentary Sample</div>
       </div>
-      <div class="gdrive-player"></div>
-    </div>
-
-    <!-- CARD 2 — replace FILE_ID_2 with your real Google Drive file ID -->
-    <div class="video-slot fade-up" style="transition-delay:.08s">
-      <div class="video-card"
-           data-gdrive-id="https://drive.google.com/file/d/1vsdnGD1s8JVHt3I8EOkDJrEZ_ybd1sUI/view?usp=sharing"
-           data-title="Leader Branding – Motion"
-           data-thumb=""
-           data-emoji="🎞️">
-        <div class="video-thumb">
-          <div class="thumb-placeholder">🎞️</div>
-          <div class="play-btn">
-            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
-          </div>
+      <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="AI Song Campaign"></iframe>
         </div>
-        <div class="video-info"><h4>Leader Branding – Motion</h4><p>AI motion graphics & visual identity</p></div>
+        <div class="video-label">AI-Generated Song Campaign</div>
       </div>
-      <div class="gdrive-player"></div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="video-slot fade-up" style="transition-delay:.16s">
-      <div class="video-card"
-           data-gdrive-id="FILE_ID_3"
-           data-title="Social Media Reel"
-           data-thumb=""
-           data-emoji="📱">
-        <div class="video-thumb">
-          <div class="thumb-placeholder">📱</div>
-          <div class="play-btn">
-            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
-          </div>
+      <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy" title="Logo Reveal"></iframe>
         </div>
-        <div class="video-info"><h4>Social Media Reel</h4><p>Viral-ready short-form content</p></div>
-      </div>
-      <div class="gdrive-player"></div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="video-slot fade-up" style="transition-delay:.04s">
-      <div class="video-card"
-           data-gdrive-id="FILE_ID_4"
-           data-title="Voter Connect Series"
-           data-thumb=""
-           data-emoji="🗳️">
-        <div class="video-thumb">
-          <div class="thumb-placeholder">🗳️</div>
-          <div class="play-btn">
-            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
-          </div>
-        </div>
-        <div class="video-info"><h4>Voter Connect Series</h4><p>Ground-level campaign documentation</p></div>
-      </div>
-      <div class="gdrive-player"></div>
-    </div>
-
-    <!-- CARD 5 -->
-    <div class="video-slot fade-up" style="transition-delay:.12s">
-      <div class="video-card"
-           data-gdrive-id="FILE_ID_5"
-           data-title="AI Election Anthem"
-           data-thumb=""
-           data-emoji="🎵">
-        <div class="video-thumb">
-          <div class="thumb-placeholder">🎵</div>
-          <div class="play-btn">
-            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
-          </div>
-        </div>
-        <div class="video-info"><h4>AI Election Anthem</h4><p>AI-generated campaign video</p></div>
-      </div>
-      <div class="gdrive-player"></div>
-    </div>
-
-    <!-- CARD 6 -->
-    <div class="video-slot fade-up" style="transition-delay:.2s">
-      <div class="video-card"
-           data-gdrive-id="FILE_ID_6"
-           data-title="Digital Outreach Series"
-           data-thumb=""
-           data-emoji="📡">
-        <div class="video-thumb">
-          <div class="thumb-placeholder">📡</div>
-          <div class="play-btn">
-            <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" stroke="#D4AF37" stroke-width="2"/><polygon points="28,22 28,46 50,34" fill="#D4AF37"/></svg>
-          </div>
-        </div>
-        <div class="video-info"><h4>Digital Outreach Series</h4><p>Door-to-door meets digital storytelling</p></div>
-      </div>
-      <div class="gdrive-player"></div>
-    </div>
-
-  </div><!-- /video-grid -->
-</section>
-
-<div class="gold-divider"></div>
-
-<!-- VOICE SLIDER -->
-<section id="voice">
-  <div class="voice-header fade-up">
-    <div class="section-label" style="display:inline-block">Voice Samples</div>
-    <h2 class="section-title">Campaign Voice Recordings</h2>
-    <p class="section-desc" style="margin:0 auto">Listen to our political voice-over and campaign audio samples.</p>
-  </div>
-  <div class="voice-slider-wrap fade-up" style="transition-delay:.1s">
-    <div class="voice-slider" id="voiceSlider">
-      <div class="voice-slide">
-        <div class="slide-label">Voice Sample 01</div>
-        <h3>जनता की आवाज़ – Voter Address</h3>
-        <p>A powerful Hindi voice-over crafted for mass voter outreach, delivered with clarity and emotional depth to connect candidates with their constituents.</p>
-        <div class="audio-player" data-src="d1"><button class="ap-play" onclick="togglePlay(this)"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="ap-bar-wrap"><div class="ap-progress-track" onclick="seekAudio(this,event)"><div class="ap-progress-fill"></div></div><div class="ap-time"><span class="ap-current">0:00</span><span class="ap-total">1:45</span></div></div></div>
-      </div>
-      <div class="voice-slide">
-        <div class="slide-label">Voice Sample 02</div>
-        <h3>Election Rally Script – English</h3>
-        <p>High-energy English rally voice-over for youth-focused campaigns. Dynamic delivery that amplifies the leader's message across digital platforms.</p>
-        <div class="audio-player" data-src="d2"><button class="ap-play" onclick="togglePlay(this)"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="ap-bar-wrap"><div class="ap-progress-track" onclick="seekAudio(this,event)"><div class="ap-progress-fill"></div></div><div class="ap-time"><span class="ap-current">0:00</span><span class="ap-total">2:10</span></div></div></div>
-      </div>
-      <div class="voice-slide">
-        <div class="slide-label">Voice Sample 03</div>
-        <h3>AI-Generated Campaign Jingle</h3>
-        <p>An AI-powered campaign jingle combining regional cultural tones with modern production — memorable, shareable, tailored for each constituency.</p>
-        <div class="audio-player" data-src="d3"><button class="ap-play" onclick="togglePlay(this)"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="ap-bar-wrap"><div class="ap-progress-track" onclick="seekAudio(this,event)"><div class="ap-progress-fill"></div></div><div class="ap-time"><span class="ap-current">0:00</span><span class="ap-total">0:58</span></div></div></div>
-      </div>
-      <div class="voice-slide">
-        <div class="slide-label">Voice Sample 04</div>
-        <h3>Hinglish Social Media Voice Note</h3>
-        <p>Casual yet authoritative Hinglish voice notes for social media stories and reels — relatable to the modern voter demographic.</p>
-        <div class="audio-player" data-src="d4"><button class="ap-play" onclick="togglePlay(this)"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="ap-bar-wrap"><div class="ap-progress-track" onclick="seekAudio(this,event)"><div class="ap-progress-fill"></div></div><div class="ap-time"><span class="ap-current">0:00</span><span class="ap-total">1:22</span></div></div></div>
+        <div class="video-label">Candidate Logo Reveal</div>
       </div>
     </div>
-  </div>
-  <div class="slider-nav">
-    <button class="sl-arrow" id="slPrev">&#8592;</button>
-    <div class="sl-dots" id="slDots">
-      <div class="sl-dot active" data-i="0"></div>
-      <div class="sl-dot" data-i="1"></div>
-      <div class="sl-dot" data-i="2"></div>
-      <div class="sl-dot" data-i="3"></div>
-    </div>
-    <button class="sl-arrow" id="slNext">&#8594;</button>
   </div>
 </section>
-
-<div class="gold-divider"></div>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="contact-grid">
-    <div class="fade-up">
-      <div class="section-label">Get in Touch</div>
-      <h2 class="section-title">Start Your<br>Campaign Today</h2>
-      <p class="section-desc" style="margin-bottom:24px">Ready to build a powerful digital presence? Tell us about your campaign and we'll create content that resonates with voters.</p>
-      <div class="contact-info">
-        <div class="ci-item"><div class="ci-icon">📧</div><div><h5>Email</h5><p>contact@digivardhan.in</p></div></div>
-        <div class="ci-item"><div class="ci-icon">📱</div><div><h5>Phone / WhatsApp</h5><p>+91 98765 43210</p></div></div>
-        <div class="ci-item"><div class="ci-icon">📍</div><div><h5>Location</h5><p>Lucknow, Uttar Pradesh</p></div></div>
-      </div>
-      <div class="contact-cta-btns">
-        <a href="tel:+919876543210" class="cta-call">
-          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-          📞 Call Now
+<section id="contact" style="background: var(--dark);">
+  <div class="contact-inner">
+    <div class="section-label" style="text-align:center">Get In Touch</div>
+    <div class="section-title" style="text-align:center">Campaign Content for<br/>Political Leaders</div>
+    <div class="section-divider"><div class="divider-gem"></div></div>
+
+    <div class="contact-card">
+      <div class="contact-name">📞 Keshav Nachivnekar</div>
+      <div class="contact-number">9673967679</div>
+      <div class="contact-btns">
+        <a href="tel:9673967679" class="btn-call-big">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          Call Now
         </a>
-        <a href="https://wa.me/919876543210?text=Hi%20DigiVardhan%2C%20I%20want%20campaign%20promotion." target="_blank" class="cta-wa">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          💬 WhatsApp
+        <a href="https://wa.me/919673967679?text=Hello%20DigiVardhan%20Marketing%2C%20I%20want%20campaign%20content." target="_blank" class="btn-wa-big">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
         </a>
-      </div>
-    </div>
-    <div class="fade-up" style="transition-delay:.14s">
-      <div class="contact-form">
-        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Leader / Candidate Name"/></div>
-        <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
-        <div class="form-group"><label>Campaign Type</label>
-          <select>
-            <option value="">Select Campaign Type</option>
-            <option>Lok Sabha Campaign</option>
-            <option>Vidhan Sabha Campaign</option>
-            <option>Municipal / Local Body</option>
-            <option>Party Social Media</option>
-            <option>Leader Branding</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your campaign goals and requirements…"></textarea></div>
-        <button class="btn-gold" onclick="submitForm()" style="align-self:flex-start">📲 Send Campaign Inquiry</button>
       </div>
     </div>
   </div>
@@ -655,151 +519,38 @@ footer p{color:var(--muted);font-size:.8rem;}
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">DigiVardhan Marketing</div>
-  <p>© 2025 DigiVardhan Marketing. All rights reserved.</p>
-  <div class="social-links">
-    <a class="social-link" href="#">in</a>
-    <a class="social-link" href="#">▶</a>
-    <a class="social-link" href="#">𝕏</a>
-    <a class="social-link" href="#">f</a>
-  </div>
+  <p>© 2024 <strong>DigiVardhan Marketing</strong> — All Rights Reserved</p>
+  <p>Political Digital Campaign Content | Keshav Nachivnekar | 9673967679</p>
 </footer>
 
+<!-- FLOATING CTA BAR -->
+<div class="float-cta">
+  <a href="tel:9673967679" class="btn-call">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    📞 Call: 9673967679
+  </a>
+  <a href="https://wa.me/919673967679?text=Hello%20DigiVardhan%20Marketing%2C%20I%20want%20campaign%20content." target="_blank" class="btn-wa">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    💬 WhatsApp Us
+  </a>
+</div>
+
 <script>
-/* ─── HAMBURGER ─── */
-const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
-hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileMenu.classList.toggle('open');});
-function closeMob(){hamburger.classList.remove('open');mobileMenu.classList.remove('open');}
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0) translateX(0)';
+      }
+    });
+  }, { threshold: 0.08 });
 
-/* ─────────────────────────────────────────────
-   GOOGLE DRIVE INLINE VIDEO PLAYER
-   ─────────────────────────────────────────────
-   Logic:
-   • Click thumbnail → build iframe inside .gdrive-player
-   • Embed URL: https://drive.google.com/file/d/FILE_ID/preview
-   • Show loading spinner until iframe fires load event
-   • Close button restores thumbnail view
-   • Only one video plays at a time (others auto-close)
-   ───────────────────────────────────────────── */
-function buildGDrivePlayer(slot, card) {
-  const fileId  = card.dataset.gdriveId;
-  const title   = card.dataset.title || 'Campaign Video';
-  const player  = slot.querySelector('.gdrive-player');
-
-  // Build player HTML
-  player.innerHTML = `
-    <div class="gdrive-player-header">
-      <span class="gdrive-player-title">▶ ${title}</span>
-      <button class="gdrive-player-close" title="Close">✕</button>
-    </div>
-    <div class="gdrive-frame-wrap">
-      <div class="gdrive-loading">
-        <div class="spinner"></div>
-        <span>Loading video…</span>
-      </div>
-      <iframe
-        src="https://drive.google.com/file/d/${fileId}/preview"
-        allow="autoplay"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
-    </div>
-    <div class="gdrive-player-footer">
-      <a class="gdrive-open-link"
-         href="https://drive.google.com/file/d/${fileId}/view"
-         target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M14 3v2H5v14h14v-9h2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h9zm7-2v6h-2V4.414l-8.293 8.293-1.414-1.414L18.586 3H15V1h6z"/></svg>
-        Open in Google Drive
-      </a>
-    </div>`;
-
-  // Hide spinner when iframe loads
-  const iframe  = player.querySelector('iframe');
-  const loading = player.querySelector('.gdrive-loading');
-  iframe.addEventListener('load', () => loading.classList.add('hidden'));
-
-  // Close button
-  player.querySelector('.gdrive-player-close').addEventListener('click', () => {
-    closeSlot(slot);
+  document.querySelectorAll('.cat-card, .stat-box, .video-card, .about-text p').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = `opacity 0.55s ease ${i * 0.04}s, transform 0.55s ease ${i * 0.04}s`;
+    observer.observe(el);
   });
-}
-
-function openSlot(slot) {
-  // Close any other open slot first
-  document.querySelectorAll('.video-slot.playing').forEach(s => {
-    if (s !== slot) closeSlot(s);
-  });
-  slot.classList.add('playing');
-  // Scroll player into view smoothly
-  slot.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-function closeSlot(slot) {
-  slot.classList.remove('playing');
-  // Destroy iframe to stop playback
-  const player = slot.querySelector('.gdrive-player');
-  player.innerHTML = '';
-}
-
-// Attach click handlers to all video cards
-document.querySelectorAll('.video-slot').forEach(slot => {
-  const card = slot.querySelector('.video-card');
-  card.addEventListener('click', () => {
-    buildGDrivePlayer(slot, card);
-    openSlot(slot);
-  });
-});
-
-/* ─── VOICE SLIDER ─── */
-let cur=0;const tot=4;
-const slider=document.getElementById('voiceSlider');
-const dots=document.querySelectorAll('.sl-dot');
-function goTo(n){
-  cur=(n+tot)%tot;
-  slider.style.transform=`translateX(-${cur*100}%)`;
-  dots.forEach((d,i)=>d.classList.toggle('active',i===cur));
-}
-document.getElementById('slPrev').addEventListener('click',()=>goTo(cur-1));
-document.getElementById('slNext').addEventListener('click',()=>goTo(cur+1));
-dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i)));
-let tx=0;
-slider.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX;},{passive:true});
-slider.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(Math.abs(dx)>48)goTo(dx<0?cur+1:cur-1);},{passive:true});
-
-/* ─── FAKE AUDIO PLAYER ─── */
-const aS={};
-function togglePlay(btn){
-  const pl=btn.closest('.audio-player'),src=pl.dataset.src;
-  const fill=pl.querySelector('.ap-progress-fill'),curr=pl.querySelector('.ap-current');
-  const tot2=pl.querySelector('.ap-total'),svg=btn.querySelector('svg');
-  if(!aS[src]){const p=tot2.textContent.split(':');aS[src]={playing:false,elapsed:0,total:+p[0]*60+(+p[1]),fill,curr,timer:null};}
-  const s=aS[src];
-  if(s.playing){clearInterval(s.timer);s.playing=false;svg.innerHTML='<polygon points="5,3 19,12 5,21"/>';}
-  else{
-    s.playing=true;svg.innerHTML='<rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/>';
-    s.timer=setInterval(()=>{
-      s.elapsed=Math.min(s.elapsed+.5,s.total);
-      s.fill.style.width=(s.elapsed/s.total*100)+'%';
-      s.curr.textContent=Math.floor(s.elapsed/60)+':'+String(Math.floor(s.elapsed%60)).padStart(2,'0');
-      if(s.elapsed>=s.total){clearInterval(s.timer);s.playing=false;s.elapsed=0;s.fill.style.width='0%';s.curr.textContent='0:00';svg.innerHTML='<polygon points="5,3 19,12 5,21"/>';}
-    },500);
-  }
-}
-function seekAudio(track,e){
-  const pl=track.closest('.audio-player'),src=pl.dataset.src;
-  if(!aS[src])return;
-  const s=aS[src],rect=track.getBoundingClientRect();
-  s.elapsed=((e.clientX-rect.left)/rect.width)*s.total;
-  s.fill.style.width=(s.elapsed/s.total*100)+'%';
-  s.curr.textContent=Math.floor(s.elapsed/60)+':'+String(Math.floor(s.elapsed%60)).padStart(2,'0');
-}
-
-/* ─── FADE-UP OBSERVER ─── */
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-
-/* ─── CONTACT FORM ─── */
-function submitForm(){alert('✅ Inquiry sent!\nWe will contact you within 24 hours.');}
 </script>
 </body>
 </html>
